@@ -1,0 +1,2 @@
+﻿  main.cpp
+C:\Users\zi-ku\source\repos\CGH-ver2.0.0\CGH-ver2.0.0\main.cpp(8,10): fatal error C1083: include ファイルを開けません。'matplotlib-cpp/matplotlibcpp.h':No such file or directory
