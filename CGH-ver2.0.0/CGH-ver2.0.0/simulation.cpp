@@ -7,6 +7,8 @@ void simulation() {
 	Culcurate culcurate;
 	Setting set;
 	Image image;
+	Grapth grapth;
+
 	string filename;
 
 	printf("please input filename\n");
@@ -21,5 +23,6 @@ void simulation() {
 
 	culcurate.traditional_method(object.point, media.point_inf, set.wavelength,set.mediasize_X,set.mediasize_Y);
 
+	grapth.write(culcurate.writing_inf, set.mediasize_X, set.mediasize_Y);
 	image.generation(culcurate.writing_inf, set.mediasize_X, set.mediasize_Y, 0, filename);
 }
