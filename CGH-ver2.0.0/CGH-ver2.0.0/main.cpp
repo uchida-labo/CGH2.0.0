@@ -1,7 +1,9 @@
 #include <iostream>
+#include"simulation.h"
 
 int main() {
-	printf("hello");
+	printf("hello\n");
+	simulation();
 }
 
 /* opence test
