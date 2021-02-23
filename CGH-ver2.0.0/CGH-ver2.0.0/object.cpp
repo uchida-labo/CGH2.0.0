@@ -6,7 +6,7 @@ void Object::P() {
 
 void Object::initial_position(double x, double y, double z, vector<vector<double>> object_position) {
 
-	for (int i = 0; i < object_position[0].size(); i++) {
+	for (int i = 0; i < object_position.size(); i++) {
 		point[i][0] = object_position[i][0] + x;
 		point[i][1] = object_position[i][1] + y;
 		point[i][2] = object_position[i][2] + z;
