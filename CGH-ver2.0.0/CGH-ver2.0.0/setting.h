@@ -1,6 +1,6 @@
 #pragma once
 
-class setting {
+class Setting {
 public:
 	int mediasize_X = 1000;
 	int mediasize_Y = 1000;

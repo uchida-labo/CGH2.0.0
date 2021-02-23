@@ -7,8 +7,8 @@
 
 using namespace std;
 
-class culcurate {
+class Culcurate {
 public:
 	vector<vector<double>> writing_inf;
-	void traditional_method(vector<vector<double>> point_group, vector<vector<vector<double>>>media_point, double wavelength);
+	void traditional_method(vector<vector<double>> point_group, vector<vector<vector<double>>>media_point, double wavelength,int mediasize_X,int mediasize_Y);
 };
