@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -151,10 +151,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="culcurate.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="object.cpp" />
+    <ClCompile Include="simulation.cpp" />
+    <ClCompile Include="writing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="context.h" />
+    <ClInclude Include="culcurate.h" />
+    <ClInclude Include="object.h" />
+    <ClInclude Include="setting.h" />
+    <ClInclude Include="simulation.h" />
+    <ClInclude Include="writing.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
