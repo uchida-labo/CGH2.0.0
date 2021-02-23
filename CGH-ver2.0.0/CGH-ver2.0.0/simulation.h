@@ -8,5 +8,6 @@
 #include"object.h"
 #include"context.h"
 #include"writing.h"
+#include"grapth.h"
 
 void simulation();

@@ -13,5 +13,4 @@ public:
 	double apperin_distance = 0.005;
 	double incident_angle = 0;
 	int sepa = 3;//ˆê•Ó“–‚½‚è‚Ì•ªŠ„”
-
 };
