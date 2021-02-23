@@ -2,7 +2,6 @@
 
 #include <vector>
 #include "context.h"
-#include"setobject.h"
 
 using namespace std;
 

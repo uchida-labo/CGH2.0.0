@@ -8,7 +8,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 	double total = 0;
 
 
-	writing_inf.resize(3, vector<double>(media_point.size() * media_point[0].size()));
+	writing_inf.resize(mediasize_X,vector<double>(mediasize_Y));
 
 	for (int i = 0; i < mediasize_Y; i++) {
 		for (int m = 0; m < mediasize_X; m++) {
