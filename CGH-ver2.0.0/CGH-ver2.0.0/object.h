@@ -17,6 +17,6 @@ class Media {
 public:
 	void media_criate(int mediasize_X, int mediasize_Y, int pixcel_pitch,double distance);
 
-	vector<vector<vector<double>>> point_inf;
+	vector<vector<vector<double>>> point;
 	void initial_position(double x, double y, double z, vector<vector<vector<double>>> point_inf);
 };

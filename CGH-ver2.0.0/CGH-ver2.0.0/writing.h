@@ -11,7 +11,6 @@ using namespace std;
 class Image {
 public:
 	Mat image;
-	void setup(int rows, int cols);
 	void generation(vector<vector<double>> writing_inf, int mediasize_X, int mediasize_Y, double harf, string filename);
 	void N_generation(vector<vector<double>> writing_inf, int HD_width, int HD_length, int mediasize_X, int mediasize_Y, double harf, string filename, int sepa);
 };

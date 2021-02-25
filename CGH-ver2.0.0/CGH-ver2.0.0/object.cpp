@@ -24,14 +24,14 @@ void Object::initial_position(double x, double y, double z, vector<vector<double
 
 
 void Media::media_criate(int mediasize_X, int mediasize_Y, int pixcel_pitch,double distance) {
-	point_inf.resize(mediasize_Y);
+	point.resize(mediasize_Y);
 	for (int i = 0; i < mediasize_Y; i++) {
-		point_inf[i].resize(mediasize_X);
+		point[i].resize(mediasize_X);
 		for (int m = 0; m < mediasize_X; m++) {
-			point_inf[i][m].resize(3);
-			point_inf[i][m][0] = (-((double)mediasize_X / 2) + m) * (double)pixcel_pitch * micro;
-			point_inf[i][m][1] = ((double)mediasize_Y / 2 - i) * (double)pixcel_pitch * micro;
-			point_inf[i][m][2] = distance;
+			point[i][m].resize(3);
+			point[i][m][0] = (-((double)mediasize_X / 2) + m) * (double)pixcel_pitch * micro;
+			point[i][m][1] = ((double)mediasize_Y / 2 - i) * (double)pixcel_pitch * micro;
+			point[i][m][2] = distance;
 		}
 	}
 }
@@ -39,9 +39,9 @@ void Media::media_criate(int mediasize_X, int mediasize_Y, int pixcel_pitch,doub
 void Media::initial_position(double x, double y, double z, vector<vector<vector<double>>> point_inf) {
 	for (int i = 0; i < point_inf.size(); i++) {
 		for (int m = 0; m < point_inf[i].size(); m++) {
-			point_inf[i][m][0] = point_inf[i][m][0] + x;
-			point_inf[i][m][1] = point_inf[i][m][1] + y;
-			point_inf[i][m][2] = point_inf[i][m][2] + z;
+			point[i][m][0] = point_inf[i][m][0] + x;
+			point[i][m][1] = point_inf[i][m][1] + y;
+			point[i][m][2] = point_inf[i][m][2] + z;
 		}
 	}
 }
