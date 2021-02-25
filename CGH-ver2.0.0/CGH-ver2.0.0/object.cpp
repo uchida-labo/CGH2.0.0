@@ -4,6 +4,15 @@ void Object::P() {
 	point = { {0.0,0.0,0.0} };
 }
 
+void Object::P_lineX(double size, int resolution) {
+	point.resize(resolution, vector<double>(3));
+	for (int i = 0; i < resolution; i++) {
+		point[i][0] = size / resolution * i;
+		point[i][1] = 0;
+		point[i][2] = 0;	
+	}
+}
+
 void Object::initial_position(double x, double y, double z, vector<vector<double>> object_position) {
 
 	for (int i = 0; i < object_position.size(); i++) {
