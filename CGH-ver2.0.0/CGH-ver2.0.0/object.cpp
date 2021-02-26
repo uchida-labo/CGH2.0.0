@@ -13,6 +13,31 @@ void Object::P_lineX(double size, int resolution) {
 	}
 }
 
+void Object::cubic(double size, double resolution) {
+	point.resize(12 * resolution, vector<double>(3));
+	for (int i = 0; i < resolution; i++) {
+		for (int m = 0; m < 4; m++) {
+			point[i * 4 + m][0] = size / resolution * i;
+			point[i * 4 + m][1] = size * ((m % 2) ^ (m / 2));
+			point[i * 4 + m][2] = -size * (m / 2);
+		}
+	}
+	for (int i = 0; i < resolution; i++) {
+		for (int m = 0; m < 4; m++) {
+			point[4 * resolution + i * 4 + m][0] = size * ((m % 2) ^ (m / 2));
+			point[4 * resolution + i * 4 + m][1] = size / resolution * i;
+			point[4 * resolution + i * 4 + m][2] = -size * (m / 2);
+		}
+	}
+	for (int i = 0; i < resolution; i++) {
+		for (int m = 0; m < 4; m++) {
+			point[2 * 4 * resolution + i * 4 + m][0] = size * ((m % 2) ^ (m / 2));
+			point[2 * 4 * resolution + i * 4 + m][1] = size * (m / 2);
+			point[2 * 4 * resolution + i * 4 + m][2] = -size / resolution * i;
+		}
+	}
+}
+
 void Object::initial_position(double x, double y, double z, vector<vector<double>> object_position) {
 
 	for (int i = 0; i < object_position.size(); i++) {
@@ -21,7 +46,6 @@ void Object::initial_position(double x, double y, double z, vector<vector<double
 		point[i][2] = object_position[i][2] + z;
 	}
 }
-
 
 void Media::media_criate(int mediasize_X, int mediasize_Y, int pixcel_pitch,double distance) {
 	point.resize(mediasize_Y);

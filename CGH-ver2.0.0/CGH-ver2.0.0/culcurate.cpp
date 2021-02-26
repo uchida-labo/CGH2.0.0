@@ -8,7 +8,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 	double total = 0;
 
 	writing_inf.resize(mediasize_Y,vector<double>(mediasize_X));
-
+	
 	for (int i = 0; i < mediasize_Y; i++) {
 		for (int m = 0; m < mediasize_X; m++) {
 			for (int n = 0; n < point_group.size(); n++) {
@@ -22,4 +22,111 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 			total = 0;
 		}
 	}
+}
+
+void Culcurate::LUT_method(vector<vector<double>> point_group, vector<vector<vector<double>>> media_point, double wavelength, int mediasize_X, int mediasize_Y, double pixcel_pitch) {
+	printf("hello LUTmethod\n");
+	Setting set;
+	double scattered_light_intensity;
+	double distance;
+	bool flag = false;
+	int num = 0;
+	int x, y, x_in;
+
+	vector<vector<vector<double>>> virtual_media;
+	vector<vector<double>> two_dimensions_inf;
+	vector<vector<vector<double>>> point_sort{ {{0,0,0}} };
+
+	/*this is point sortingÅ´*/
+	point_sort[0][0][0] = point_group[0][0] / (pixcel_pitch * micro);
+	point_sort[0][0][1] = point_group[0][1] / (pixcel_pitch * micro);
+	point_sort[0][0][2] = point_group[0][2] / (pixcel_pitch * micro);
+	for (int i = 1; i < point_group.size(); i++) {
+		for (int m = 0; m < point_sort.size(); m++) {
+			if ((int)(point_group[i][2] * 1000000) == (int)(point_sort[m][0][2])) {
+				//printf("in");
+				point_sort[m].resize(point_sort[m].size() + 1);
+				point_sort[m][point_sort[m].size() - 1].insert(point_sort[m][point_sort[m].size() - 1].end(), point_group[i][0] / (pixcel_pitch * micro));
+				point_sort[m][point_sort[m].size() - 1].insert(point_sort[m][point_sort[m].size() - 1].end(), point_group[i][1] / (pixcel_pitch * micro));
+				point_sort[m][point_sort[m].size() - 1].insert(point_sort[m][point_sort[m].size() - 1].end(), point_group[i][2] / (pixcel_pitch * micro));
+				flag = true;
+			}
+		}
+		if (flag == false) {
+			point_sort.resize(point_sort.size() + 1);
+			point_sort[point_sort.size() - 1].resize(1);
+			point_sort[point_sort.size() - 1][0].resize(3);
+			point_sort[point_sort.size() - 1][0][0] = point_group[i][0] / (pixcel_pitch * micro);
+			point_sort[point_sort.size() - 1][0][1] = point_group[i][1] / (pixcel_pitch * micro);
+			point_sort[point_sort.size() - 1][0][2] = point_group[i][2] / (pixcel_pitch * micro);
+		}
+		flag = false;
+	}
+
+/*this is point sortingÅ™*/
+
+/*this is meking planeÅ´*/
+	writing_inf.resize(3);
+	for (int k = 0; k < point_sort.size(); k++) {
+		//printf("ininin");
+		virtual_media.resize(mediasize_Y);
+		two_dimensions_inf.resize(mediasize_Y);
+		for (int i = 0; i < mediasize_Y; i++) {
+			virtual_media[i].resize(mediasize_X);
+			two_dimensions_inf[i].resize(mediasize_X);
+			for (int m = 0; m < mediasize_X; m++) {
+				virtual_media[i][m].resize(4);
+				virtual_media[i][m][0] = m;
+				virtual_media[i][m][1] = i;
+				virtual_media[i][m][2] = 5000.0 - point_sort[k][0][2];
+				//printf("%f %f %f\n", virtual_media[i][m][0], virtual_media[i][m][1], virtual_media[i][m][2]);
+				//if(point_sort[k][][1])
+				distance = sqrt((m * m + i * i + virtual_media[i][m][2] * virtual_media[i][m][2]) * pixcel_pitch * micro * pixcel_pitch * micro);
+				scattered_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * m * pixcel_pitch * micro));
+				virtual_media[i][m][3] = scattered_light_intensity;
+			}
+		}
+
+		for (int i = 0; i < point_sort[k].size(); i++) {
+			y = mediasize_Y / 2 - point_sort[k][i][1] + 0.1;
+			for (int m = 0; m < mediasize_Y; m++) {
+				x = mediasize_X / 2 + point_sort[k][i][0];
+				x_in = mediasize_X / 2 + point_sort[k][i][0];
+				for (int n = 0; n < mediasize_X; n++) {
+					if ((x >= 0 && x < mediasize_X) && (y >= 0 && y < mediasize_Y)) {
+						if (x != x_in) {
+							two_dimensions_inf[y][x] += virtual_media[m][n][3];
+						}
+						else {
+							two_dimensions_inf[y][x] += virtual_media[m][n][3];
+						}
+					}
+					if ((y >= 0 && y < mediasize_Y) && (x_in >= 0 && x_in < mediasize_X)) {
+						if (x != x_in) {
+							two_dimensions_inf[y][x_in] += virtual_media[m][n][3];
+						}
+						else {
+						}
+					}
+					x++;
+					x_in--;
+				}
+				y++;
+			}
+		}
+	}
+	/*this is meking planeÅ™*/
+
+	/*this is moveing dataÅ´*/
+	writing_inf.resize(mediasize_Y, vector<double>(mediasize_X));
+	
+	for (int i = 0; i < mediasize_Y; i++) {
+		writing_inf[i].resize(mediasize_X);
+		for (int m = 0; m < mediasize_X; m++) {
+			writing_inf[i][m] = two_dimensions_inf[i][m];
+			//printf("%f %f %f\n", writing_inf[0][i * mediasize_X + m], writing_inf[1][i * mediasize_X + m], writing_inf[2][i * mediasize_X + m]);
+		}
+		//printf("\n");
+	}
+	/*this is moving dataÅ™*/
 }
