@@ -24,7 +24,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 	}
 }
 
-void Culcurate::LUT_method(vector<vector<double>> point_group, vector<vector<vector<double>>> media_point, double wavelength, int mediasize_X, int mediasize_Y, double pixcel_pitch) {
+void Culcurate::LUT_method(vector<vector<double>> point_group, vector<vector<vector<double>>> media_point, double wavelength, int mediasize_X, int mediasize_Y, double pixcel_pitch,double apperin_distance) {
 	printf("hello LUTmethod\n");
 	Setting set;
 	double scattered_light_intensity;
@@ -78,9 +78,8 @@ void Culcurate::LUT_method(vector<vector<double>> point_group, vector<vector<vec
 				virtual_media[i][m].resize(4);
 				virtual_media[i][m][0] = m;
 				virtual_media[i][m][1] = i;
-				virtual_media[i][m][2] = 5000.0 - point_sort[k][0][2];
-				//printf("%f %f %f\n", virtual_media[i][m][0], virtual_media[i][m][1], virtual_media[i][m][2]);
-				//if(point_sort[k][][1])
+				virtual_media[i][m][2] = apperin_distance - point_sort[k][0][2];
+
 				distance = sqrt((m * m + i * i + virtual_media[i][m][2] * virtual_media[i][m][2]) * pixcel_pitch * micro * pixcel_pitch * micro);
 				scattered_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * m * pixcel_pitch * micro));
 				virtual_media[i][m][3] = scattered_light_intensity;
@@ -124,9 +123,7 @@ void Culcurate::LUT_method(vector<vector<double>> point_group, vector<vector<vec
 		writing_inf[i].resize(mediasize_X);
 		for (int m = 0; m < mediasize_X; m++) {
 			writing_inf[i][m] = two_dimensions_inf[i][m];
-			//printf("%f %f %f\n", writing_inf[0][i * mediasize_X + m], writing_inf[1][i * mediasize_X + m], writing_inf[2][i * mediasize_X + m]);
 		}
-		//printf("\n");
 	}
 	/*this is moving dataª*/
 }

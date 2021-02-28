@@ -19,10 +19,10 @@ void simulation() {
 
 	//object.P();
 	object.cubic(0.0004, 100);
-	object.initial_position(-0.0002, 0.0001, 0, object.point);
+	object.initial_position(-0.0002, 0.00075, 0, object.point);
 
 	//culcurate.traditional_method(object.point, media.point, set.wavelength,set.mediasize_X,set.mediasize_Y);
-	culcurate.LUT_method(object.point, media.point, set.wavelength, set.mediasize_X, set.mediasize_Y, set.pixcelpitch);
+	culcurate.LUT_method(object.point, media.point, set.wavelength, set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance*million);
 	//grapth.write(culcurate.writing_inf, set.mediasize_X, set.mediasize_Y);
 	image.generation(culcurate.writing_inf, set.mediasize_X, set.mediasize_Y, 0, filename);
 	image.N_generation(culcurate.writing_inf, set.HD_width, set.HD_length,set.mediasize_X,set.mediasize_Y ,0, filename, 3);
