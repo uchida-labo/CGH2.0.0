@@ -18,7 +18,7 @@ void simulation() {
 	media.initial_position(0, 0, 0, media.point);
 
 	//object.P();
-	object.cubic(0.0004, 100);
+	object.cubic(0.0004, 10);
 	object.initial_position(-0.0002, 0.00075, 0, object.point);
 
 	//culcurate.traditional_method(object.point, media.point, set.wavelength,set.mediasize_X,set.mediasize_Y);
