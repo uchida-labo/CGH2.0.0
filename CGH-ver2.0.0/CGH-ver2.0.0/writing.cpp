@@ -37,8 +37,8 @@ void Image::N_generation(vector<vector<double>> writing_inf, int HD_width, int H
 			for (int m = 0; m < HD_length-1;m ++) {
 				for (int n = 0; n < HD_width-1; n++) {
 					//printf("%d\n",n);
-					if ((m +i/sepa)* sepa < mediasize_Y && (n + i % sepa) * sepa < mediasize_X) {
-						if (writing_inf[(m + i / sepa) * sepa][(n + i % sepa) * sepa] > harf) {
+					if ((m * sepa +i/sepa) < mediasize_Y && (n * sepa + i % sepa) < mediasize_X) {
+						if (writing_inf[(m * sepa + i / sepa) ][(n * sepa + i % sepa)] > harf) {
 							for (int o = 0; o < 3; o++) {
 								image.at<Vec3b>(m, n)[o] = 255;
 							}
@@ -61,12 +61,16 @@ void Image::N_generation(vector<vector<double>> writing_inf, int HD_width, int H
 		for (int i = 0; i < sepa * sepa; i++) {
 			for (int m = i / sepa; m < mediasize_Y; m++) {
 				for (int n = i % sepa; n < (i % sepa + (mediasize_X - HD_width) / 2 + HD_width); n++) {
-					if (m + sepa - 1 < HD_length && n + sepa - 1 < HD_width) {
-						if (writing_inf[m * sepa][n * sepa] > harf) {
-							image.at<uchar>(m + (HD_length - mediasize_Y) / 2, n + (HD_width - mediasize_X) / 2) = 255;
+					if ((m + i / sepa) * sepa < mediasize_Y && (n + i % sepa) * sepa < mediasize_X) {
+						if (writing_inf[(m + i / sepa) * sepa][(n + i % sepa) * sepa] > harf) {
+							for (int o = 0; o < 3; o++) {
+								image.at<Vec3b>(m, n)[o] = 255;
+							}
 						}
 						else {
-							image.at<uchar>(m + (HD_length - mediasize_Y) / 2, n + (HD_width - mediasize_X) / 2) = 0;
+							for (int o = 0; o < 3; o++) {
+								image.at<Vec3b>(m, n)[o] = 0;
+							}
 						}
 					}
 				}
@@ -81,12 +85,16 @@ void Image::N_generation(vector<vector<double>> writing_inf, int HD_width, int H
 		for (int i = 0; i < sepa*sepa; i++) {
 			for (int m = i / sepa; m < HD_length; m++) {
 				for (int n = i % sepa; n < mediasize_X; n++) {
-					if (m + sepa - 1 < HD_length && n + sepa - 1 < HD_width) {
-						if (writing_inf[m * sepa][n * sepa] > harf) {
-							image.at<uchar>(m + (HD_length - mediasize_Y) / 2, n + (HD_width - mediasize_X) / 2) = 255;
+					if ((m + i / sepa) * sepa < mediasize_Y && (n + i % sepa) * sepa < mediasize_X) {
+						if (writing_inf[(m + i / sepa) * sepa][(n + i % sepa) * sepa] > harf) {
+							for (int o = 0; o < 3; o++) {
+								image.at<Vec3b>(m, n)[o] = 255;
+							}
 						}
 						else {
-							image.at<uchar>(m + (HD_length - mediasize_Y) / 2, n + (HD_width - mediasize_X) / 2) = 0;
+							for (int o = 0; o < 3; o++) {
+								image.at<Vec3b>(m, n)[o] = 0;
+							}
 						}
 					}
 				}
@@ -101,12 +109,16 @@ void Image::N_generation(vector<vector<double>> writing_inf, int HD_width, int H
 		for (int i = 0; i < sepa * sepa; i++) {
 			for (int m = i / sepa; m < mediasize_Y; m++) {
 				for (int n = i % sepa; n < mediasize_X; n++) {
-					if (m + sepa - 1 < HD_length && n + sepa - 1 < HD_width) {
-						if (writing_inf[m*sepa][n*sepa] > harf) {
-							image.at<uchar>(m  + (HD_length - mediasize_Y) / 2, n  + (HD_width - mediasize_X) / 2) = 255;
+					if ((m + i / sepa) * sepa < mediasize_Y && (n + i % sepa) * sepa < mediasize_X) {
+						if (writing_inf[(m + i / sepa) * sepa][(n + i % sepa) * sepa] > harf) {
+							for (int o = 0; o < 3; o++) {
+								image.at<Vec3b>(m, n)[o] = 255;
+							}
 						}
 						else {
-							image.at<uchar>(m  + (HD_length - mediasize_Y) / 2, n  + (HD_width - mediasize_X) / 2) = 0;
+							for (int o = 0; o < 3; o++) {
+								image.at<Vec3b>(m, n)[o] = 0;
+							}
 						}
 					}
 				}
