@@ -7,7 +7,7 @@ void simulation() {
 	Culcurate culcurate;
 	Setting set;
 	Image image;
-	Grapth grapth;
+	// Grapth grapth;
 
 	string filename;
 
