@@ -47,7 +47,7 @@ void Object::initial_position(double x, double y, double z, vector<vector<double
 	}
 }
 
-void Media::media_criate(int mediasize_X, int mediasize_Y, int pixcel_pitch,double distance) {
+void Media::media_criate(int mediasize_X, int mediasize_Y, double pixcel_pitch,double distance) {
 	point.resize(mediasize_Y);
 	for (int i = 0; i < mediasize_Y; i++) {
 		point[i].resize(mediasize_X);
