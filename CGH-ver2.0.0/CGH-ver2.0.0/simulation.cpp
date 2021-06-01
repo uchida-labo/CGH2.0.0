@@ -8,7 +8,7 @@ void simulation() {
 	Setting set;
 	Image image;
 	// Grapth grapth;
-	double cubic_size = 0.001;
+	double cubic_size = 1e-3;
 
 
 	string filename;
@@ -28,10 +28,23 @@ void simulation() {
 							-2.0 * 1e-3,
 							object.point);
 
-	//culcurate.traditional_method(object.point, media.point, set.wavelength,set.mediasize_X,set.mediasize_Y);
-	culcurate.LUT_method(object.point, media.point, set.wavelength, set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance*million);
+	/*auto itr = media.point.begin();
+	for (; itr != media.point.end(); ++itr) {
+		auto itr2 = (*itr).begin();
+		for (; itr2 != (*itr).end(); ++itr2) {
+			printf("%e,%e,%e\n", (*itr2)[0], (*itr2)[1], (*itr2)[2]);
+		}
+	}*/
+	/*auto itr = object.point.begin();
+	for (;itr != object.point.end(); ++itr)
+	{
+		printf("%08e,%08e,%08e\n", (*itr)[0], (*itr)[1], (*itr)[2]);
+	}*/
+	
+	culcurate.traditional_method(object.point, media.point, set.wavelength,set.mediasize_X,set.mediasize_Y);
+	//culcurate.LUT_method(object.point, media.point, set.wavelength, set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance*million);
 	//grapth.write(culcurate.writing_inf, set.mediasize_X, set.mediasize_Y);
 	image.generation(culcurate.writing_inf, set.mediasize_X, set.mediasize_Y, 0, filename);
-	image.N_generation(culcurate.writing_inf, set.HD_width, set.HD_length,set.mediasize_X,set.mediasize_Y ,0, filename, 1);
+	//image.N_generation(culcurate.writing_inf, set.HD_width, set.HD_length,set.mediasize_X,set.mediasize_Y ,0, filename, 1);
 	printf("end");
 }
