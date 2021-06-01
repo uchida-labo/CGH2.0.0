@@ -22,7 +22,11 @@ void simulation() {
 	//object.P();
 	object.cubic(cubic_size, 1000);
 
-	object.initial_position(-(set.mediasize_X * set.pixcelpitch / 2 *1e-6)+(cubic_size/2), 0.000, 0.000, object.point);
+	printf("%f\n", ((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size);
+	object.initial_position(-((double)set.mediasize_X * set.pixcelpitch / 2.0 * 1e-6) +(cubic_size/2.0),
+							 ((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size - 1e-4,
+							-2.0 * 1e-3,
+							object.point);
 
 	//culcurate.traditional_method(object.point, media.point, set.wavelength,set.mediasize_X,set.mediasize_Y);
 	culcurate.LUT_method(object.point, media.point, set.wavelength, set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance*million);
