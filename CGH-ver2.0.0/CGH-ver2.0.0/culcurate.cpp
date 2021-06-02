@@ -13,7 +13,9 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 		for (int m = 0; m < mediasize_X; m++) {
 			for (int n = 0; n < point_group.size(); n++) {
 				if (point_group[n][1] >= media_point[i][m][1]) {
-					distance = sqrt((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0]) + (point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1]) + (point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2]));
+					distance = sqrt((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0]) 
+								   +(point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1])
+								   +(point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2]));
 					scatterd_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * media_point[i][m][0]));
 					total += scatterd_light_intensity;
 				}
@@ -21,6 +23,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 			writing_inf[i][m] = total;
 			total = 0;
 		}
+		printf("working...%d%%\r", (int)((double)i/(double)mediasize_Y*100.0));
 	}
 }
 
