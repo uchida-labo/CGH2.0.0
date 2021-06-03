@@ -10,8 +10,10 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 
 	writing_inf.resize(mediasize_Y,vector<double>(mediasize_X,0));
 	
+
+	#pragma omp parallel
 	for (int i = 0; i < mediasize_Y; i++) {
-		#pragma omp parallel for
+		#pragma omp for private(distance,scatterd_light_intensity)
 		for (int m = 0; m < mediasize_X; m++) {
 			for (int n = 0; n < point_group.size(); n++) {
 				if (point_group[n][1] >= media_point[i][m][1]) {
