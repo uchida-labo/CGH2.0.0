@@ -23,7 +23,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 			writing_inf[i][m] = total;
 			total = 0;
 		}
-		printf("working...%d%%\r", (int)((double)i/(double)mediasize_Y*100.0));
+		printf("\rworking...%d%%", (int)((double)(i+1) / (double)mediasize_Y * 100.0));
 	}
 }
 
