@@ -7,15 +7,16 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 	double scatterd_light_intensity = 0;
 	double distance = 0;
 	double total = 0;
+	int n = 0;
 
 	writing_inf.resize(mediasize_Y,vector<double>(mediasize_X,0));
 	
 
 	#pragma omp parallel
 	for (int i = 0; i < mediasize_Y; i++) {
-		#pragma omp for private(distance,scatterd_light_intensity)
+		#pragma omp for private(distance,scatterd_light_intensity,n)
 		for (int m = 0; m < mediasize_X; m++) {
-			for (int n = 0; n < point_group.size(); n++) {
+			for (n = 0; n < point_group.size(); n++) {
 				if (point_group[n][1] >= media_point[i][m][1]) {
 					distance = sqrt((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0]) 
 								   +(point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1])
