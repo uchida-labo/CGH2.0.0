@@ -27,7 +27,10 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 				}
 			}
 		}
-		printf("\rworking...%d%%", (int)((double)(i+1) / (double)mediasize_Y * 100.0));
+		#pragma omp single
+		{
+			printf("\rworking...%d%%", (int)((double)(i + 1) / (double)mediasize_Y * 100.0));
+		}
 	}
 }
 
