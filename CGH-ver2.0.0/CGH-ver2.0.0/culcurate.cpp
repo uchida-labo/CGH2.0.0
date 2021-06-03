@@ -22,8 +22,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 								   +(point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1])
 								   +(point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2]));
 					scatterd_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * media_point[i][m][0]));
-					#pragma omp atomic
-						writing_inf[i][m] += scatterd_light_intensity;
+					writing_inf[i][m] += scatterd_light_intensity;
 				}
 			}
 		}
