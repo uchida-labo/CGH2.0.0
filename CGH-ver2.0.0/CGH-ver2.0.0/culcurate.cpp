@@ -1,4 +1,6 @@
 #include"culcurate.h"
+#include <stdlib.h>
+#include <omp.h>
 
 void Culcurate::traditional_method(vector<vector<double>> point_group, vector<vector<vector<double>>>media_point, double wavelength, int mediasize_X, int mediasize_Y) {
 	printf("hello traditional\n");
@@ -6,9 +8,22 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 	double scatterd_light_intensity = 0;
 	double distance = 0;
 	double total = 0;
+	int n = 0;
+	double random_val;
 
 	writing_inf.resize(mediasize_Y,vector<double>(mediasize_X));
 	
+
+	vector<double> random_phase;
+	srand(point_group.size());
+
+	for (n = 0; n < point_group.size(); n++)
+	{
+		random_val = (PI/32.0)*(rand() % (32 + 1));
+		random_val = 0;
+		random_phase.push_back(random_val);
+	}
+
 	for (int i = 0; i < mediasize_Y; i++) {
 		for (int m = 0; m < mediasize_X; m++) {
 			for (int n = 0; n < point_group.size(); n++) {
@@ -16,7 +31,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 					distance = sqrt((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0]) 
 								   +(point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1])
 								   +(point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2]));
-					scatterd_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * media_point[i][m][0]));
+					scatterd_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * media_point[i][m][0])+random_phase[n]);
 					total += scatterd_light_intensity;
 				}
 			}
@@ -40,7 +55,7 @@ void Culcurate::LUT_method(vector<vector<double>> point_group, vector<vector<vec
 	vector<vector<double>> two_dimensions_inf;
 	vector<vector<vector<double>>> point_sort{ {{0,0,0}} };
 
-	/*this is point sortingÅ´*/
+	/*this is point sortingÔøΩÔøΩ*/
 	point_sort[0][0][0] = point_group[0][0] / (pixcel_pitch * micro);
 	point_sort[0][0][1] = point_group[0][1] / (pixcel_pitch * micro);
 	point_sort[0][0][2] = point_group[0][2] / (pixcel_pitch * micro);
@@ -66,9 +81,9 @@ void Culcurate::LUT_method(vector<vector<double>> point_group, vector<vector<vec
 		flag = false;
 	}
 
-/*this is point sortingÅ™*/
+/*this is point sortingÔøΩÔøΩ*/
 
-/*this is meking planeÅ´*/
+/*this is meking planeÔøΩÔøΩ*/
 	writing_inf.resize(3);
 	for (int k = 0; k < point_sort.size(); k++) {
 		//printf("ininin");
@@ -117,9 +132,9 @@ void Culcurate::LUT_method(vector<vector<double>> point_group, vector<vector<vec
 			}
 		}
 	}
-	/*this is meking planeÅ™*/
+	/*this is meking planeÔøΩÔøΩ*/
 
-	/*this is moveing dataÅ´*/
+	/*this is moveing dataÔøΩÔøΩ*/
 	writing_inf.resize(mediasize_Y, vector<double>(mediasize_X));
 	
 	for (int i = 0; i < mediasize_Y; i++) {
@@ -128,5 +143,5 @@ void Culcurate::LUT_method(vector<vector<double>> point_group, vector<vector<vec
 			writing_inf[i][m] = two_dimensions_inf[i][m];
 		}
 	}
-	/*this is moving dataÅ™*/
+	/*this is moving dataÔøΩÔøΩ*/
 }
