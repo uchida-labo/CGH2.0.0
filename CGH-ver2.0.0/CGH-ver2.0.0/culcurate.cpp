@@ -37,6 +37,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 				}
 			}
 		}
+		#pragma omp barrier
 		#pragma omp single
 		{
 			printf("\rworking...%d%%", (int)((double)(i + 1) / (double)mediasize_Y * 100.0));
