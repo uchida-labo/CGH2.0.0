@@ -24,7 +24,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 	}
 }
 
-void Culcurate::LUT_method(vector<vector<double>> point_group, vector<vector<vector<double>>> media_point, double wavelength, int mediasize_X, int mediasize_Y, double pixcel_pitch,double apperin_distance) {
+void Culcurate::LUT_method(vector<vector<double>> point_group, double wavelength, int mediasize_X, int mediasize_Y, double pixcel_pitch,double apperin_distance) {
 	printf("hello LUTmethod\n");
 	Setting set;
 	double scattered_light_intensity;
