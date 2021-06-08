@@ -18,8 +18,8 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 
 	for (n = 0; n < point_group.size(); n++)
 	{
-		random_val = (PI/32.0)*(rand() % (32 + 1));
-		random_val = 0;
+		random_val = (PI/ RAND_MAX)*rand();
+		//random_val = 0;
 		random_phase.push_back(random_val);
 	}
 
