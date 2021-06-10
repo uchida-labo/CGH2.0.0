@@ -52,6 +52,7 @@ Media::Media() :Pixel_pitch(0) {}
 double Media::GetPixelPitch() { return Pixel_pitch; }
 
 void Media::media_criate(int mediasize_X, int mediasize_Y, double pixcel_pitch,double distance) {
+	Pixel_pitch = pixcel_pitch;
 	point.resize(mediasize_Y);
 	for (int i = 0; i < mediasize_Y; i++) {
 		point[i].resize(mediasize_X);
