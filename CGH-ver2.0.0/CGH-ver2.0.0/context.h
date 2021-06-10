@@ -1,5 +1,5 @@
 #pragma once
-constexpr auto PI = 3.14159;
+constexpr auto PI = 3.141592653589793;
 constexpr auto million = 1000000;
 constexpr auto kilo = 1000;
 constexpr auto mili = 0.001;

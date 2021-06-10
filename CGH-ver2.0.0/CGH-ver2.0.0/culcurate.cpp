@@ -1,4 +1,6 @@
 #include"culcurate.h"
+#include <stdlib.h>
+#include <omp.h>
 
 void Culcurate::traditional_method(vector<vector<double>> point_group, vector<vector<vector<double>>>media_point, double wavelength, int mediasize_X, int mediasize_Y) {
 	printf("hello traditional\n");
@@ -6,24 +8,40 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 	double scatterd_light_intensity = 0;
 	double distance = 0;
 	double total = 0;
+	int n = 0;
+	double random_val;
 
-	writing_inf.resize(mediasize_Y,vector<double>(mediasize_X));
+	writing_inf.resize(mediasize_Y,vector<double>(mediasize_X,0));
 	
+	vector<double> random_phase;
+	srand(point_group.size());
+
+	for (n = 0; n < point_group.size(); n++)
+	{
+		random_val = (PI/ RAND_MAX)*rand();
+		//random_val = 0;
+		random_phase.push_back(random_val);
+	}
+
+	#pragma omp parallel
 	for (int i = 0; i < mediasize_Y; i++) {
+		#pragma omp for private(distance,scatterd_light_intensity,n)
 		for (int m = 0; m < mediasize_X; m++) {
-			for (int n = 0; n < point_group.size(); n++) {
+			for (n = 0; n < point_group.size(); n++) {
 				if (point_group[n][1] >= media_point[i][m][1]) {
 					distance = sqrt((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0]) 
 								   +(point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1])
 								   +(point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2]));
-					scatterd_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * media_point[i][m][0]));
-					total += scatterd_light_intensity;
+					scatterd_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * media_point[i][m][0])+random_phase[n]);
+					writing_inf[i][m] += scatterd_light_intensity;
 				}
 			}
-			writing_inf[i][m] = total;
-			total = 0;
 		}
-		printf("working...%d%%\r", (int)((double)i/(double)mediasize_Y*100.0));
+		#pragma omp barrier
+		#pragma omp single
+		{
+			printf("\rworking...%d%%", (int)((double)(i + 1) / (double)mediasize_Y * 100.0));
+		}
 	}
 }
 
