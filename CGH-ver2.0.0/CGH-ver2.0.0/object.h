@@ -21,6 +21,8 @@ public:
 
 	vector<vector<vector<double>>> point;
 	void initial_position(double x, double y, double z, vector<vector<vector<double>>> point_inf);
+	double GetPixelPitch();
+
 private:
 	double Pixel_pitch;
 };
