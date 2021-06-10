@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <omp.h>
 
-void Culcurate::traditional_method(vector<vector<double>> point_group, vector<vector<vector<double>>>media_point, double wavelength, int mediasize_X, int mediasize_Y) {
+void Culcurate::traditional_method(vector<vector<double>> point_group, Media media, double wavelength, int mediasize_X, int mediasize_Y) {
 	printf("hello traditional\n");
 	Setting set;
 	double scatterd_light_intensity = 0;
@@ -10,6 +10,8 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, vector<ve
 	double total = 0;
 	int n = 0;
 	double random_val;
+
+	vector<vector<vector<double>>>media_point = media.point;
 
 	writing_inf.resize(mediasize_Y,vector<double>(mediasize_X,0));
 	

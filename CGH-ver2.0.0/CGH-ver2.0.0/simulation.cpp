@@ -44,7 +44,7 @@ void simulation() {
 	
 	auto start = std::chrono::system_clock::now();
 
-	culcurate.traditional_method(object.point, media.point, set.wavelength,set.mediasize_X,set.mediasize_Y);
+	culcurate.traditional_method(object.point, media, set.wavelength,set.mediasize_X,set.mediasize_Y);
 	//culcurate.LUT_method(object.point, media.point, set.wavelength, set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance*million);
 	//grapth.write(culcurate.writing_inf, set.mediasize_X, set.mediasize_Y);
 
