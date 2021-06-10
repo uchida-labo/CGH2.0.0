@@ -24,7 +24,7 @@ void simulation() {
 	object.cubic(cubic_size, 1000);
 
 	printf("%f\n", ((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size);
-	object.initial_position(-((double)set.mediasize_X * set.pixcelpitch / 2.0 * 1e-6) +(cubic_size/2.0),
+	object.initial_position(-(cubic_size/2.0),
 							 ((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size - 1e-4,
 							-2.0 * 1e-3,
 							object.point);
