@@ -10,6 +10,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 	double total = 0;
 	int n = 0;
 	double random_val;
+	double kappa = 2 * PI / (wavelength * nano);
 
 	vector<vector<vector<double>>>media_point = media.point;
 
