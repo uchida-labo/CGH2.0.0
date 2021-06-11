@@ -12,6 +12,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 	double random_val;
 	double kappa = 2 * PI / (wavelength * nano);
 	double tan_max_diffraction_angle = tan(asin(wavelength*nano/(2*media.GetPixelPitch()*micro)));
+	double xyPlane_distance, height;
 
 	vector<vector<vector<double>>>media_point = media.point;
 
@@ -29,7 +30,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 
 	#pragma omp parallel
 	for (int i = 0; i < mediasize_Y; i++) {
-		#pragma omp for private(distance,scatterd_light_intensity,n)
+		#pragma omp for private(distance, scatterd_light_intensity, xyPlane_distance, height, n)
 		for (int m = 0; m < mediasize_X; m++) {
 			for (n = 0; n < point_group.size(); n++) {
 				if (point_group[n][1] >= media_point[i][m][1]) {
