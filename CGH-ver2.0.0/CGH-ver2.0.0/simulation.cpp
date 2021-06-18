@@ -16,12 +16,12 @@ void simulation() {
 	//mediaの中心に(0,0,0)点がないので，そこの改良 "ok" 
 	//mediaの中心を軸に自由にすることで，光の入射角等の変更に対処
 	media.media_criate(set.mediasize_X, set.mediasize_Y, set.pixcelpitch);
-	media.initial_position(0, 0, 0, media.point);
+	//media.initial_position(0, 0, 0, media.point);
 
 	//objectをmediaから飛び出し距離だけずらす感じにする．
 	//以下の値は全部整数値にしてあげた方がLUT法において楽になるかも
 	//object.P();
-	object.cubic(0.0004, 10);
+	object.cubic(4000, 10, 5000);//推奨値：object.cubic(4000, 10,5000);
 	object.initial_position(-0.0002, 0.00075, 0, object.point);
 
 	//culcurate.traditional_method(object.point, media.point, set.wavelength,set.mediasize_X,set.mediasize_Y);

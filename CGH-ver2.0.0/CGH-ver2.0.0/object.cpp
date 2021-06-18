@@ -13,27 +13,31 @@ void Object::P_lineX(double size, int resolution) {
 	}
 }
 
-void Object::cubic(double size, double resolution) {
-	point.resize(12 * resolution, vector<double>(3));
+void Object::cubic(int size, int resolution,int distance) {
+	resolution += 1;
+	point.resize(8 + 12 * (resolution-1), vector<double>(3));
 	for (int i = 0; i < resolution; i++) {
 		for (int m = 0; m < 4; m++) {
-			point[i * 4 + m][0] = size / resolution * i;
-			point[i * 4 + m][1] = size * ((m % 2) ^ (m / 2));
-			point[i * 4 + m][2] = -size * (m / 2);
+			point[4 * i + m][0] = pow(-1,((m % 2) ^ (m / 2))) * (size / 2 - (size / resolution * i) * ((m+1) % 2));
+			point[4 * i + m][1] = pow(-1,m / 2)* (size / 2 - (size / resolution * i) * (m % 2));
+			point[4 * i + m][2] = distance;
 		}
 	}
+
 	for (int i = 0; i < resolution; i++) {
 		for (int m = 0; m < 4; m++) {
-			point[4 * resolution + i * 4 + m][0] = size * ((m % 2) ^ (m / 2));
-			point[4 * resolution + i * 4 + m][1] = size / resolution * i;
-			point[4 * resolution + i * 4 + m][2] = -size * (m / 2);
+			point[4 * resolution + 4 * i + m][0] = pow(-1, ((m % 2) ^ (m / 2))) * (size / 2 - (size / resolution * i) * ((m + 1) % 2));
+			point[4 * resolution + 4 * i + m][1] = pow(-1, m / 2) * (size / 2 - (size / resolution * i) * (m % 2));
+			point[4 * resolution + 4 * i + m][2] = distance + size;
 		}
 	}
-	for (int i = 0; i < resolution; i++) {
+
+	for (int i = 0; i < resolution-1; i++) {
+		printf("in");
 		for (int m = 0; m < 4; m++) {
-			point[2 * 4 * resolution + i * 4 + m][0] = size * ((m % 2) ^ (m / 2));
-			point[2 * 4 * resolution + i * 4 + m][1] = size * (m / 2);
-			point[2 * 4 * resolution + i * 4 + m][2] = -size / resolution * i;
+			point[2 * 4 * resolution + 4 * i + m][0] = pow(-1, ((m % 2) ^ (m / 2))) * (size / 2);
+			point[2 * 4 * resolution + 4 * i + m][1] = pow(-1, m / 2) * (size / 2);
+			point[2 * 4 * resolution + 4 * i + m][2] = distance + size / resolution * (i+1);
 		}
 	}
 }
