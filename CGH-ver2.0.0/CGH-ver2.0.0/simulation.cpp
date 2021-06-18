@@ -13,9 +13,9 @@ void simulation() {
 
 	printf("please input filename\n");
 	cin >> filename;
-	//mediaの中心に(0,0,0)点がないので，そこの改良
+	//mediaの中心に(0,0,0)点がないので，そこの改良 "ok" 
 	//mediaの中心を軸に自由にすることで，光の入射角等の変更に対処
-	media.media_criate(set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance);
+	media.media_criate(set.mediasize_X, set.mediasize_Y, set.pixcelpitch);
 	media.initial_position(0, 0, 0, media.point);
 
 	//objectをmediaから飛び出し距離だけずらす感じにする．
