@@ -2,9 +2,9 @@
 
 class Setting {
 public:
-	int mediasize_X = 1024*3;
-	int mediasize_Y = 768*3;
-	double pixcelpitch = 1.0;
+	int mediasize_X = 1024;//1024*3;
+	int mediasize_Y = 768;//768*3;
+	double pixcelpitch = 1.0;//um
 	int HD_width = 1024;
 	int HD_length = 768;
 
