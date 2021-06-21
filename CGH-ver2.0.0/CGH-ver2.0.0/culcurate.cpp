@@ -13,6 +13,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 	double kappa = 2 * PI / (wavelength * nano);
 	double tan_max_diffraction_angle = tan(asin(wavelength*nano/(2*media.GetPixelPitch()*micro)));
 	double xyPlane_distance, height;
+	int last_progress, now_progress;
 
 	vector<vector<vector<double>>>media_point = media.point;
 
@@ -49,8 +50,13 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 		}
 		#pragma omp barrier
 		#pragma omp single
-		{
-			printf("\rworking...%d%%", (int)((double)(i + 1) / (double)mediasize_Y * 100.0));
+		{	
+			now_progress = (int)((double)(i + 1) / (double)mediasize_Y * 100.0);
+			if (now_progress != last_progress)
+			{
+				printf("\rworking...%d%%", (int)((double)(i + 1) / (double)mediasize_Y * 100.0));
+				last_progress = now_progress;
+			}
 		}
 	}
 }
