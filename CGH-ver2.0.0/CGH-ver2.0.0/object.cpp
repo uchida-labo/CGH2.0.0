@@ -36,11 +36,7 @@ void Object::cubic(int size, int resolution,int distance) {
 			point[2 * 4 * resolution + 4 * i + m][0] = pow(-1, ((m % 2) ^ (m / 2))) * (size / 2);
 			point[2 * 4 * resolution + 4 * i + m][1] = pow(-1, m / 2) * (size / 2);
 			point[2 * 4 * resolution + 4 * i + m][2] = distance + size / resolution * (i+1);
-			printf("%d \n",4*i+m);
 		}
-	}
-	for (int i = 0; i < point.size(); i++) {
-		printf("%d %d %d\n", point[i][0], point[i][1], point[i][2]);
 	}
 }
 
