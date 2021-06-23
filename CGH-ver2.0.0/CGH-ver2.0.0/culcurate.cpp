@@ -35,13 +35,13 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 		for (int m = 0; m < mediasize_X; m++) {
 			for (n = 0; n < point_group.size(); n++) {
 				if (point_group[n][1] >= media_point[i][m][1]) {
-					xyPlane_distance = sqrt(pow((point_group[n][0] - media_point[i][m][0]), 2)
-						+ pow((point_group[n][1] - media_point[i][m][1]), 2));
+					xyPlane_distance = sqrt((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0])
+										  + (point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1]));
 
 					height = abs(point_group[n][2] - media_point[i][m][2]);
 
 					if(xyPlane_distance < height*tan_max_diffraction_angle ){
-						distance = sqrt(pow(xyPlane_distance,2)  + pow(height,2));
+						distance = sqrt((xyPlane_distance*xyPlane_distance) +(height*height));
 						scatterd_light_intensity = (1 / distance) * cos(kappa * (distance - sin(set.incident_angle) * media_point[i][m][0])+random_phase[n]);
 						writing_inf[i][m] += scatterd_light_intensity;
 					}
