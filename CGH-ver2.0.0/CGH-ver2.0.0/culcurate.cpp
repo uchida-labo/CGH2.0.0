@@ -32,7 +32,8 @@ void Culcurate::LUT_method(vector<vector<int>> point_group, double wavelength, i
 	bool flag = false;
 	int num = 0;
 	int x, y, x_in;
-	int x_max = mediasize_X / 2, x_min = -mediasize_X / 2, y_max = mediasize_Y / 2, y_min = -mediasize_Y / 2;
+	int x_max = 0, x_min = 0, y_max = 0, y_min = 0;
+	int virtual_media_x_max, virtual_media_x_min, virtual_media_y_max, virtual_media_y_min;
 
 	vector<vector<vector<double>>> virtual_media;
 	vector<vector<double>> two_dimensions_inf;
@@ -62,16 +63,16 @@ void Culcurate::LUT_method(vector<vector<int>> point_group, double wavelength, i
 			point_sort[point_sort.size() - 1][0][2] = point_group[i][2];
 		}
 		flag = false;
-		if (x_max > point_group[i][0]) {
+		if (x_max < point_group[i][0]) {
 			x_max = point_group[i][0];
 		}
-		if (x_min < point_group[i][0]) {
+		if (x_min > point_group[i][0]) {
 			x_min = point_group[i][0];
 		}
-		if (y_max > point_group[i][1]) {
+		if (y_max < point_group[i][1]) {
 			y_max = point_group[i][1];
 		}
-		if (y_min < point_group[i][1]) {
+		if (y_min > point_group[i][1]) {
 			y_min = point_group[i][1];
 		}
 	}
@@ -79,35 +80,41 @@ void Culcurate::LUT_method(vector<vector<int>> point_group, double wavelength, i
 /*this is point sortingÅ™*/
 
 /*this is meking planeÅ´*/
+	virtual_media_x_max = (x_min < 0) ? mediasize_X / 2 - x_min : mediasize_X / 2;
+	virtual_media_x_min = (x_max > 0) ? -(mediasize_X / 2 + x_max) : -mediasize_X / 2;
+	virtual_media_y_max = (y_max > 0) ? mediasize_Y / 2 + y_max : mediasize_Y / 2;
+	virtual_media_y_min = (y_min < 0) ? -mediasize_Y / 2 + y_min : -mediasize_Y / 2;
 	writing_inf.resize(mediasize_Y, vector<double>(mediasize_X));
 	for (int k = 0; k < point_sort.size(); k++) {
-		//printf("ininin");
-		virtual_media.resize(((mediasize_Y <= y_max - y_min)) ? y_max - y_min : mediasize_Y);
-		two_dimensions_inf.resize(((mediasize_Y <= y_max - y_min)) ? y_max - y_min : mediasize_Y);
-		for (int i = 0; i < ((mediasize_Y <= y_max - y_min)) ? y_max - y_min : mediasize_Y; i++) {
-			virtual_media[i].resize(((mediasize_X <= x_max - x_min)) ? x_max - x_min : mediasize_X);
-			two_dimensions_inf[i].resize(((mediasize_X <= x_max - x_min)) ? x_max - x_min : mediasize_X);
-			for (int m = 0; m < ((mediasize_X <= x_max - x_min)) ? x_max - x_min : mediasize_X; m++) {
+		//int q = (mediasize_Y < y_max - y_min + mediasize_Y) ? y_max - y_min + mediasize_Y : mediasize_Y;
+		virtual_media.resize(virtual_media_y_max-virtual_media_y_min);
+		for (int i = 0; i < virtual_media_y_max-virtual_media_y_min; i++) {
+			//printf("%d\n", virtual_media[i].size());
+			int w = (mediasize_X < x_max - x_min + mediasize_X) ? x_max - x_min+mediasize_X : mediasize_X;
+			virtual_media[i].resize(virtual_media_x_max - virtual_media_x_min);
+			for (int m = 0; m < virtual_media_x_max - virtual_media_x_min; m++) {
+				//printf("%d %d %d %d\n",i ,m,virtual_media.size(), virtual_media[i].size());
 				virtual_media[i][m].resize(3);
 				virtual_media[i][m][0] = m;
 				virtual_media[i][m][1] = i;
-				if (i < (y_max - y_min) / 2) {
-					distance = sqrt((m * m + i * i + point_sort[i][m][2] * point_sort[i][m][2]) * pixcel_pitch * pixcel_pitch);
+				if (i > (virtual_media_y_max-virtual_media_y_min) / 2) {
+					distance = sqrt((pow(-(abs(x_max)+mediasize_X/2) + m, 2) + pow(abs(y_min)+mediasize_Y/2 - i, 2) + pow(point_sort[k][0][2], 2)) * pixcel_pitch * pixcel_pitch);
 					scattered_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * m * pixcel_pitch * micro));
 					virtual_media[i][m][2] = scattered_light_intensity;
+					//printf("%d %d\n",w/2+m,q/2+i);
 				}
+			//	printf(" %d %d %d %d %f\n",i,m, virtual_media[i][m][0], virtual_media[i][m][1], virtual_media[i][m][2]);
 			}
 		}
 
 		for (int i = 0; i < point_sort[k].size(); i++) {
-			y = 1 / 2 * (y_max - y_min - mediasize_Y)+point_sort[k][i][1];
 			for (int m = 0; m < mediasize_Y; m++) {
-				x = 1 / 2 * (x_max - x_min - mediasize_X) + point_sort[k][i][0];
+				y = m + abs(y_max) + point_sort[k][i][1];
 				for (int n = 0; n < mediasize_X; n++) {
-					writing_inf[i][m] = virtual_media[y][x][2];
-					x++;
+					x = n + abs(x_min) - point_sort[k][i][0];
+					//printf("%d %d \n", x, y);
+					writing_inf[m][n] += virtual_media[y][x][2];
 				}
-				y++;
 			}
 		}
 		/*

@@ -20,8 +20,9 @@ void simulation() {
 
 	//objectをmediaから飛び出し距離だけずらす感じにする．"ok"
 	//以下の値は全部整数値にしてあげた方がLUT法において楽になるかも"ok"
-	object.P();
-	//object.cubic(400, 10, 5000);//推奨値：object.cubic(400, 1,5000);
+	//object.P();
+	//object.P_lineX(4, 1);//test:object.P_lineX(400,10);
+	object.cubic(400, 10, 5000);//test：object.cubic(400, 1,5000);
 	//object.initial_position(-200, 750, 0, object.point);
 	
 	//culcurate.traditional_method(object.point, media.point, set.wavelength, set.mediasize_X, set.mediasize_Y, set.pixcelpitch * 0.000001);
