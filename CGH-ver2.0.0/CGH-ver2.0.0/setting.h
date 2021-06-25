@@ -11,6 +11,6 @@ public:
 	double wavelength = 532.0;
 	double amplitude = 0.5;
 	double apperin_distance = 0.005;
-	double incident_angle = 0;
+	double incident_angle = 22.5;
 	int sepa = 3;//ˆê•Ó“–‚½‚è‚Ì•ªŠ„”
 };

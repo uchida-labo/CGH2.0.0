@@ -22,6 +22,7 @@ void Culcurate::traditional_method(vector<vector<int>> point_group, vector<vecto
 			total = 0;
 		}
 	}
+	printf("%f %f %f\n", writing_inf[183][0], writing_inf[184][0], writing_inf[185][0]);
 }
 
 void Culcurate::LUT_method(vector<vector<int>> point_group, double wavelength, int mediasize_X, int mediasize_Y, double pixcel_pitch) {
@@ -76,7 +77,13 @@ void Culcurate::LUT_method(vector<vector<int>> point_group, double wavelength, i
 			y_min = point_group[i][1];
 		}
 	}
-
+/*
+	for (int i = 0; i < point_sort.size(); i++) {
+		for (int m = 0; m < point_sort[i].size();m++) {
+			printf("%d %d %d\n", point_sort[i][m][0], point_sort[i][m][1], point_sort[i][m][2]);
+		}
+	}
+*/
 /*this is point sortingª*/
 
 /*this is meking plane«*/
@@ -109,9 +116,9 @@ void Culcurate::LUT_method(vector<vector<int>> point_group, double wavelength, i
 
 		for (int i = 0; i < point_sort[k].size(); i++) {
 			for (int m = 0; m < mediasize_Y; m++) {
-				y = m + abs(y_max) + point_sort[k][i][1];
+				y = m + abs(y_min) + point_sort[k][i][1];
 				for (int n = 0; n < mediasize_X; n++) {
-					x = n + abs(x_min) - point_sort[k][i][0];
+					x = n + abs(x_max) - point_sort[k][i][0];
 					//printf("%d %d \n", x, y);
 					writing_inf[m][n] += virtual_media[y][x][2];
 				}
@@ -148,8 +155,5 @@ void Culcurate::LUT_method(vector<vector<int>> point_group, double wavelength, i
 		*/
 	}
 	/*this is meking planeª*/
-
-	/*this is moveing data«*/
-	
-	/*this is moving dataª*/
+	printf("%f %f %f\n", writing_inf[183][0], writing_inf[184][0], writing_inf[185][0]);
 }
