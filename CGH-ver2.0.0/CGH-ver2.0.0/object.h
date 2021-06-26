@@ -9,6 +9,7 @@ using namespace std;
 class Object {
 public:
 	void P();
+	void Ps();
 	void P_lineX(int size, int resolution,int distance);
 	void cubic(int size, int resolution,int distance);
 	void initial_position(double x, double y, double z, vector<vector<int>> object_position);

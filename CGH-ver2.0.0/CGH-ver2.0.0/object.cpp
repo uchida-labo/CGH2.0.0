@@ -4,6 +4,10 @@ void Object::P() {//
 	point = { {0,0,5000} };
 }
 
+void Object::Ps() {
+	point = { {0,0,5000}, {300,0,5000} ,{0,300,5000} ,{1000,1000,50} };
+}
+
 void Object::P_lineX(int size, int resolution,int distance) {
 	point.resize(resolution, vector<int>(3));
 	for (int i = 0; i < resolution; i++) {
@@ -53,6 +57,7 @@ void Object::moving_parallel_transport(double incident_angle, vector<vector<int>
 	for (int i = 0; i < object_position.size(); i++) {
 		point[i][0] = object_position[i][0] + (int)(object_position[i][2] * sin(incident_angle));
 		point[i][2] = object_position[i][2] - (int)(object_position[i][2] * sin(incident_angle) * tan(incident_angle));
+		//printf("%d %d \n", point[i][0], point[i][2]);
 	}
 	
 }
