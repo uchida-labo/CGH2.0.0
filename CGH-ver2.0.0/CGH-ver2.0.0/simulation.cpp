@@ -22,9 +22,9 @@ void simulation() {
 	//objectをmediaから飛び出し距離だけずらす感じにする．"ok"
 	//以下の値は全部整数値にしてあげた方がLUT法において楽になるかも"ok"
 	//object.P();
-	object.Ps();
+	//object.Ps();
 	//object.P_lineX(4, 1);//test:object.P_lineX(400,10);
-	//object.cubic(400, 10, 5000);//test：object.cubic(400, 1,5000);//第二変数の最大値は第一変数まで
+	object.cubic(400, 10, 5000);//test：object.cubic(400, 1,5000);//第二変数の最大値は第一変数まで
 	object.moving_parallel_transport(set.incident_angle, object.point);
 
 	culcurate.traditional_method(object.point, media.point, set.wavelength, set.mediasize_X, set.mediasize_Y, set.pixcelpitch * 0.000001);

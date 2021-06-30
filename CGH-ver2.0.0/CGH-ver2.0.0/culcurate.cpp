@@ -103,8 +103,8 @@ void Culcurate::LUT_method(vector<vector<int>> point_group, double wavelength, i
 /*this is meking planeÅ´*/
 	virtual_media_x_max = (x_min < 0) ? (mediasize_X / 2 - x_min) : mediasize_X / 2;
 	virtual_media_x_min = (x_max > 0) ? (-(mediasize_X / 2 + x_max)) : -mediasize_X / 2;
-	virtual_media_y_max = (y_min < 0) ? (mediasize_Y / 2 + y_min) : mediasize_Y / 2;
-	virtual_media_y_min = (y_max > 0) ? (-(mediasize_Y / 2 + y_max)) : -mediasize_Y / 2;
+	virtual_media_y_max = (y_min < 0) ? (mediasize_Y / 2 + y_max) : mediasize_Y / 2;
+	virtual_media_y_min = (y_max > 0) ? (-mediasize_Y / 2 + y_min) : -mediasize_Y / 2;
 	printf("%d %d %d %d\n", virtual_media_x_max, virtual_media_x_min, virtual_media_y_max, virtual_media_y_min);
 	writing_inf.resize(mediasize_Y, vector<double>(mediasize_X));
 	for (int k = 0; k < point_sort.size(); k++) {
