@@ -10,6 +10,24 @@ void simulation() {
 	Image image;
 	// Grapth grapth;
 	double cubic_size = 1e-3;
+	FILE *fp;
+	char line[100];
+	
+	fopen_s(&fp,"G:\\�}�C�h���C�u\\�����f�[�^\\tsuru_mm.txt", "r");
+	double x, y, z,x_max=0,y_max=0;
+
+	while(fscanf_s(fp, "%lf,%lf,%lf", &x, &y, &z) != EOF)
+	{
+		object.point.push_back(vector<double>({x,y,z}));
+		if (x > x_max) x_max = x;
+		if (y > y_max) y_max = y;
+	}
+
+	printf("%d", object.point.size());
+	object.initial_position(-x_max/2,
+							((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - y_max - 1e-4,
+							0,
+							object.point);
 
 
 	string filename;
@@ -21,13 +39,13 @@ void simulation() {
 	media.initial_position(0, 0, 0, media.point);
 
 	//object.P();
-	object.cubic(cubic_size, 1000);
+	//object.cubic(cubic_size, 100);
 
-	printf("%f\n", ((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size);
-	object.initial_position(-(cubic_size/2.0),
+	//printf("%f\n", ((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size);
+	/*object.initial_position(-(cubic_size/2.0),
 							((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size - 1e-4,
-							-2.0 * 1e-3,
-							object.point);
+							-5.0 * 1e-3,
+							object.point);*/
 
 	/*auto itr = media.point.begin();
 	for (; itr != media.point.end(); ++itr) {
