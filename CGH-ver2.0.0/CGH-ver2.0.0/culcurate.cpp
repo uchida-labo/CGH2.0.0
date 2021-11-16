@@ -2,17 +2,22 @@
 #include <stdlib.h>
 #include <omp.h>
 
+double sign(double check) { return signbit(check) == 0 ? -1 : 1; }
+
 void Culcurate::traditional_method(vector<vector<double>> point_group, Media media, double wavelength, int mediasize_X, int mediasize_Y) {
 	printf("hello traditional\n");
 	Setting set;
 	double scatterd_light_intensity = 0;
 	double distance = 0;
+	double distance_adjacent_x = 0;
+	double distance_adjacent_y = 0;
 	double total = 0;
 	int n = 0;
 	double random_val;
-	double kappa = 2 * PI / (wavelength * nano);
-	double tan_max_diffraction_angle = tan(asin(wavelength*nano/(2*media.GetPixelPitch()*micro)));
-	double xyPlane_distance, height;
+	double kappa = 2 * PI / (wavelength);
+	double max_diffraction_angle = wavelength / (2 * media.GetPixelPitch());
+	double tan_max_diffraction_angle = tan(max_diffraction_angle);
+	double xyPlane_distance, height, xaxis_distance, yaxis_distance;
 	int last_progress, now_progress;
 
 	vector<vector<vector<double>>>media_point = media.point;
@@ -31,19 +36,32 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 
 	#pragma omp parallel
 	for (int i = 0; i < mediasize_Y; i++) {
-		#pragma omp for private(distance, scatterd_light_intensity, xyPlane_distance, height, n)
+		#pragma omp for private(distance, scatterd_light_intensity, xyPlane_distance, height, xaxis_distance, yaxis_distance, n, distance_adjacent_x, distance_adjacent_y)
 		for (int m = 0; m < mediasize_X; m++) {
 			for (n = 0; n < point_group.size(); n++) {
 				if (point_group[n][1] >= media_point[i][m][1]) {
-					xyPlane_distance = sqrt((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0])
-										  + (point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1]));
 
-					height = abs(point_group[n][2] - media_point[i][m][2]);
+					xaxis_distance = abs(point_group[n][0] - media_point[i][m][0]);
+					yaxis_distance = abs(point_group[n][1] - media_point[i][m][1]);
+					height         = abs(point_group[n][2] - media_point[i][m][2]);
 
-					if(xyPlane_distance < height*tan_max_diffraction_angle ){
-						distance = sqrt((xyPlane_distance*xyPlane_distance) +(height*height));
-						scatterd_light_intensity = (1 / distance) * cos(kappa * (distance - sin(set.incident_angle) * media_point[i][m][0])+random_phase[n]);
-						writing_inf[i][m] += scatterd_light_intensity;
+
+					distance = sqrt((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0])
+								  + (point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1])
+								  + (point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2]));
+
+					distance_adjacent_x = sqrt((xaxis_distance - (media.GetPixelPitch())) * (xaxis_distance - (media.GetPixelPitch()))
+											  + yaxis_distance * yaxis_distance
+											  + height * height);
+					distance_adjacent_y = sqrt( xaxis_distance * xaxis_distance
+											  +(yaxis_distance - (media.GetPixelPitch())) * (yaxis_distance - (media.GetPixelPitch()))
+									  		  + height * height);
+
+					if(abs((distance - distance_adjacent_x) / (media.GetPixelPitch() ) - set.incident_angle * sign(point_group[n][0] - media_point[i][m][0])) <= max_diffraction_angle){
+					if(abs((distance - distance_adjacent_y) / (media.GetPixelPitch() ) <= max_diffraction_angle)) {
+							scatterd_light_intensity = (1 / distance) * cos(kappa * (distance -/* sin(set.incident_angle) **/ media_point[i][m][0]) + random_phase[n]);
+							writing_inf[i][m] += scatterd_light_intensity;
+					}
 					}
 				}
 			}

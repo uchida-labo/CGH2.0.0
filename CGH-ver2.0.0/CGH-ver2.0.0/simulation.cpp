@@ -9,7 +9,8 @@ void simulation() {
 	Setting set;
 	Image image;
 	// Grapth grapth;
-	double cubic_size = 1e-3;
+
+	double cubic_size = 1;
 	FILE *fp;
 	char line[100];
 	
