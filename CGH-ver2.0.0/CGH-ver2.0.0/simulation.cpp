@@ -9,7 +9,7 @@ void simulation() {
 	Setting set;
 	Image image;
 	// Grapth grapth;
-	double cubic_size = 1e-3;
+	double cubic_size = 1;
 
 
 	string filename;
@@ -21,12 +21,12 @@ void simulation() {
 	media.initial_position(0, 0, 0, media.point);
 
 	//object.P();
-	object.cubic(cubic_size, 1000);
+	object.cubic(cubic_size, 100);
 
-	printf("%f\n", ((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size);
-	object.initial_position(-(cubic_size/2.0),
-							((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size - 1e-4,
-							-2.0 * 1e-3,
+	printf("%f\n", ((double)set.mediasize_Y * set.pixcelpitch / 2.0) - cubic_size);
+	object.initial_position((cubic_size)*2.0,
+							((double)set.mediasize_Y * set.pixcelpitch / 2.0) - cubic_size - 1e-1,
+							-5.0,
 							object.point);
 
 	/*auto itr = media.point.begin();

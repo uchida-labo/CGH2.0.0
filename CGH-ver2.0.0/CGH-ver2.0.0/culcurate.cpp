@@ -14,8 +14,8 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 	double total = 0;
 	int n = 0;
 	double random_val;
-	double kappa = 2 * PI / (wavelength * nano);
-	double max_diffraction_angle = wavelength*nano / (2 * media.GetPixelPitch()*micro);
+	double kappa = 2 * PI / (wavelength);
+	double max_diffraction_angle = wavelength / (2 * media.GetPixelPitch());
 	double tan_max_diffraction_angle = tan(max_diffraction_angle);
 	double xyPlane_distance, height, xaxis_distance, yaxis_distance;
 	int last_progress, now_progress;
