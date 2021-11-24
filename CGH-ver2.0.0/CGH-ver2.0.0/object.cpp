@@ -68,7 +68,7 @@ void Object::rotate(double angle, vector<vector<double>> object_position, axis A
 	}
 
 	for (int i = 0; i < object_position.size(); i++) {
-		for (int dim; dim < 3; dim++) {
+		for (int dim = 0; dim < 3; dim++) {
 			point[i][dim] = object_position[i][0] * rotate_array[dim][0] +
 							object_position[i][1] * rotate_array[dim][1] +
 							object_position[i][2] * rotate_array[dim][2];
