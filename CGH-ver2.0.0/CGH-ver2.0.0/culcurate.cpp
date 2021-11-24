@@ -41,7 +41,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 	for (int i = 0; i < mediasize_Y; i++) {
 		#pragma omp for private(ser,distance, scatterd_light_intensity, xyPlane_distance, height, xaxis_distance, yaxis_distance, n, distance_adjacent_x, distance_adjacent_y)
 		for (int m = 0; m < mediasize_X; m++) {
-			ser = i * mediasize_Y + m;
+			ser = i * mediasize_X + m;
 			for (n = 0; n < point_group.size(); n++) {
 				if (point_group[n][1] >= media_point[ser][1]) {
 
@@ -56,7 +56,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 
 					distance_adjacent_x = sqrt((xaxis_distance - pixel_dis_x) * (xaxis_distance - pixel_dis_x)
 											  + yaxis_distance * yaxis_distance
-											  +(height + (pixel_dis_z * sign(point_group[n][0] - media_point[ser][0]))) * (height + pixel_dis_z * sign(point_group[n][0] - media_point[ser][0])));
+											  +(height* height));
 
 					distance_adjacent_y = sqrt( xaxis_distance * xaxis_distance
 											  +(yaxis_distance - (media.GetPixelPitch())) * (yaxis_distance - (media.GetPixelPitch()))
