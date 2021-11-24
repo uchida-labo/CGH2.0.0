@@ -23,10 +23,10 @@ void simulation() {
 	//object.P();
 	object.cubic(cubic_size, 100);
 
-	printf("%f\n", ((double)set.mediasize_Y * set.pixcelpitch / 2.0) - cubic_size);
-	object.initial_position((cubic_size)*2.0,
+
+	object.initial_position((cubic_size)*-0.5,
 							((double)set.mediasize_Y * set.pixcelpitch / 2.0) - cubic_size - 1e-1,
-							-5.0,
+							6,
 							object.get_points());
 
 	/*auto itr = media.point.begin();

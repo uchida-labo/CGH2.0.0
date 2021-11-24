@@ -18,8 +18,8 @@ void Image::generation(vector<vector<double>> writing_inf, int mediasize_X, int 
 			}
 		}
 	}
-	imshow("", image);
-	waitKey(0);
+	//imshow("", image);
+	//waitKey(0);
 
 	string extention = ".bmp";
 	imwrite(filename + extention, image);
