@@ -19,8 +19,8 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 	double max_diffraction_angle = wavelength / (2 * media.GetPixelPitch());
 	double tan_max_diffraction_angle = tan(max_diffraction_angle);
 	double xyPlane_distance, height, xaxis_distance, yaxis_distance;
-	double pixel_dis_x = cos(set.incident_angle) * media.GetPixelPitch(),
-		   pixel_dis_z = sin(set.incident_angle) * media.GetPixelPitch();
+	double pixel_dis_x = cos(0) * media.GetPixelPitch(),
+		   pixel_dis_z = sin(0) * media.GetPixelPitch();
 	int last_progress, now_progress;
 
 	vector<vector<double>> media_point = media.get_points();
