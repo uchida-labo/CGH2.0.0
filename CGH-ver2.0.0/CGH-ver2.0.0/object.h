@@ -5,6 +5,8 @@
 
 using namespace std;
 
+enum class axis{x,y,z};
+
 class Object {
 public:
 	void P();
@@ -12,6 +14,7 @@ public:
 	void cubic(double size, double resolution);
 	void initial_position(double x, double y, double z, vector<vector<double>> object_position);
 	vector<vector<double>> point;
+	void rotate(double angle, vector<vector<double>> object_position, axis Axis);
 };
 
 class Media {

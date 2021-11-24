@@ -47,6 +47,35 @@ void Object::initial_position(double x, double y, double z, vector<vector<double
 	}
 }
 
+void Object::rotate(double angle, vector<vector<double>> object_position, axis Axis) {
+	vector<vector<double>> rotate_array(3, vector<double>(3));
+	switch (Axis) {
+		case axis::x:
+			rotate_array = {{1,          0,          0},
+							{0, cos(angle), sin(angle)},
+							{0,-sin(angle), cos(angle)}};
+			break;
+		case axis::y:
+			rotate_array = {{cos(angle), 0, -sin(angle)},
+							{		  0, 1,           0},
+							{sin(angle), 0,  cos(angle)}};
+			break;
+		case axis::z:
+			rotate_array = {{ cos(angle), sin(angle), 0},
+							{-sin(angle), cos(angle), 0},
+						    {          1,          0, 1}};
+			break;
+	}
+
+	for (int i = 0; i < object_position.size(); i++) {
+		for (int dim; dim < 3; dim++) {
+			point[i][dim] = object_position[i][0] * rotate_array[dim][0] +
+							object_position[i][1] * rotate_array[dim][1] +
+							object_position[i][2] * rotate_array[dim][2];
+		}
+	}
+}
+
 Media::Media() :Pixel_pitch(0) {}
 
 double Media::GetPixelPitch() { return Pixel_pitch; }
