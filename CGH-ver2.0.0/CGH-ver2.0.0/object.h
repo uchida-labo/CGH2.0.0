@@ -24,6 +24,7 @@ class Media :public Object {
 public:
 	Media();
 	void media_criate(int mediasize_X, int mediasize_Y, double pixcel_pitch,double distance);
+	void media_criate(int mediasize_X, int mediasize_Y, double pixcel_pitch, double distance, double angle);
 
 	double GetPixelPitch();
 

@@ -95,3 +95,17 @@ void Media::media_criate(int mediasize_X, int mediasize_Y, double pixcel_pitch,d
 	}
 }
 
+void Media::media_criate(int mediasize_X, int mediasize_Y, double pixcel_pitch, double distance, double angle) {
+	Pixel_pitch = pixcel_pitch;
+	long pointnum = 0;
+	for (int i = 0; i < mediasize_Y; i++) {
+		for (int m = 0; m < mediasize_X; m++) {
+			point.emplace_back();
+			point[pointnum].push_back((mediasize_X / 2.0 - m) * pixcel_pitch * cos(angle));
+			point[pointnum].push_back((mediasize_Y / 2.0 - i) * pixcel_pitch);
+			point[pointnum].push_back(((mediasize_X / 2.0 - m) * pixcel_pitch * sin(angle)) + distance);
+
+			pointnum++;
+		}
+	}
+}
