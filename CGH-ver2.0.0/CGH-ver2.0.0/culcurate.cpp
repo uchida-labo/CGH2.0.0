@@ -18,6 +18,8 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 	double max_diffraction_angle = wavelength / (2 * media.GetPixelPitch());
 	double tan_max_diffraction_angle = tan(max_diffraction_angle);
 	double xyPlane_distance, height, xaxis_distance, yaxis_distance;
+	double pixel_dis_x = cos(set.incident_angle) * media.GetPixelPitch(),
+		   pixel_dis_z = sin(set.incident_angle) * media.GetPixelPitch();
 	int last_progress, now_progress;
 
 	vector<vector<vector<double>>>media_point = media.point;
@@ -50,16 +52,17 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 								  + (point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1])
 								  + (point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2]));
 
-					distance_adjacent_x = sqrt((xaxis_distance - (media.GetPixelPitch())) * (xaxis_distance - (media.GetPixelPitch()))
+					distance_adjacent_x = sqrt((xaxis_distance - pixel_dis_x) * (xaxis_distance - pixel_dis_x)
 											  + yaxis_distance * yaxis_distance
-											  + height * height);
+											  +(height + (pixel_dis_z * sign(point_group[n][0] - media_point[i][m][0]))) * (height + pixel_dis_z * sign(point_group[n][0] - media_point[i][m][0])));
+
 					distance_adjacent_y = sqrt( xaxis_distance * xaxis_distance
 											  +(yaxis_distance - (media.GetPixelPitch())) * (yaxis_distance - (media.GetPixelPitch()))
-									  		  + height * height);
+									  		  +(height * height));
 
-					if(abs((distance - distance_adjacent_x) / (media.GetPixelPitch() ) - set.incident_angle * sign(point_group[n][0] - media_point[i][m][0])) <= max_diffraction_angle){
-					if(abs((distance - distance_adjacent_y) / (media.GetPixelPitch() ) <= max_diffraction_angle)) {
 							scatterd_light_intensity = (1 / distance) * cos(kappa * (distance - sin(set.incident_angle) * media_point[i][m][0]) + random_phase[n]);
+					if(abs((distance - distance_adjacent_x) / (media.GetPixelPitch() ) + set.incident_angle * sign(point_group[n][0] - media_point[i][m][0])) <= max_diffraction_angle){
+					if(abs((distance - distance_adjacent_y) / (media.GetPixelPitch() )) <= max_diffraction_angle) {
 							writing_inf[i][m] += scatterd_light_intensity;
 					}
 					}
