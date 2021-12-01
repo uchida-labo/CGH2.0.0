@@ -62,7 +62,7 @@ void Culcurate::traditional_method(vector<vector<double>> point_group, Media med
 											  +(yaxis_distance - (media.GetPixelPitch())) * (yaxis_distance - (media.GetPixelPitch()))
 									  		  +(height * height));
 
-					if(abs((distance - distance_adjacent_x) / (media.GetPixelPitch() ) + set.incident_angle * sign(point_group[n][0] - media_point[ser][0])) <= max_diffraction_angle){
+					if(abs((distance - distance_adjacent_x) / (media.GetPixelPitch() ) - set.incident_angle * sign(point_group[n][0] - media_point[ser][0])) <= max_diffraction_angle){
 					if(abs((distance - distance_adjacent_y) / (media.GetPixelPitch() )) <= max_diffraction_angle) {
 							scatterd_light_intensity = (1 / distance) * cos(kappa * (distance - sin(set.incident_angle) * media_point[ser][0]) + random_phase[n]);
 							writing_inf[i][m] += scatterd_light_intensity;
