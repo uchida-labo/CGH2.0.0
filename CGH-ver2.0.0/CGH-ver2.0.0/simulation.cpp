@@ -37,7 +37,7 @@ void simulation() {
 	cin >> filename;
 
 	media.media_criate(set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance);
-	media.initial_position(0, 0, 0, media.point);
+	media.initial_position(0, 0, 0, media.get_points());
 
 	//object.P();
 	//object.cubic(cubic_size, 100);
@@ -63,7 +63,7 @@ void simulation() {
 	
 	auto start = std::chrono::system_clock::now();
 
-	culcurate.traditional_method(object.point, media, set.wavelength,set.mediasize_X,set.mediasize_Y);
+	culcurate.traditional_method(object.get_points(), media, set.wavelength,set.mediasize_X,set.mediasize_Y);
 	//culcurate.LUT_method(object.point, media.point, set.wavelength, set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance*million);
 	//grapth.write(culcurate.writing_inf, set.mediasize_X, set.mediasize_Y);
 
