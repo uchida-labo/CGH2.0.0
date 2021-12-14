@@ -29,6 +29,8 @@ void simulation() {
 							-5.0,
 							object.get_points());
 
+	object.rotate(set.incident_angle, object.get_points(), axis::y);
+
 	/*auto itr = media.point.begin();
 	for (; itr != media.point.end(); ++itr) {
 		auto itr2 = (*itr).begin();
