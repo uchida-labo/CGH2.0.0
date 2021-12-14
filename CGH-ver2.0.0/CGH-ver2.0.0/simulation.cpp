@@ -19,16 +19,16 @@ void simulation() {
 
 	while(fscanf_s(fp, "%lf,%lf,%lf", &x, &y, &z) != EOF)
 	{
-		object.point.push_back(vector<double>({x,y,z}));
+		object.pushbuck_3dpoints(x,y,z);
 		if (x > x_max) x_max = x;
 		if (y > y_max) y_max = y;
 	}
 
-	printf("%d", object.point.size());
+	printf("%d", object.get_points().size());
 	object.initial_position(-x_max/2,
 							((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - y_max - 1e-4,
 							0,
-							object.point);
+							object.get_points());
 
 
 	string filename;

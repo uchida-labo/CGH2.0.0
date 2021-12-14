@@ -76,6 +76,10 @@ void Object::rotate(double angle, vector<vector<double>> object_position, axis A
 	}
 }
 
+void Object::pushbuck_3dpoints(double x, double y, double z) {
+	point.push_back(vector<double>({ x,y,z }));
+}
+
 Media::Media() :Pixel_pitch(0) {}
 
 double Media::GetPixelPitch() { return Pixel_pitch; }

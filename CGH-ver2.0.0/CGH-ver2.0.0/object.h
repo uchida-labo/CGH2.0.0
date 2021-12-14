@@ -16,6 +16,7 @@ public:
 	void P_lineX(double size, int resolution);
 	void cubic(double size, double resolution);
 	void initial_position(double x, double y, double z, vector<vector<double>> object_position);
+	void pushbuck_3dpoints(double x, double y, double z);
 	void rotate(double angle, vector<vector<double>> object_position, axis Axis);
 	vector<vector<double>> get_points() { return point; };
 };
