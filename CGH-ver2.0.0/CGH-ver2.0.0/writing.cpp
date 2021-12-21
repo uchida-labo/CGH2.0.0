@@ -1,6 +1,6 @@
 #include "writing.h"
 
-void Image::generation(vector<vector<double>> writing_inf, int mediasize_X, int mediasize_Y, double harf, string filename) {
+void Image::generation_DMD(vector<vector<double>> writing_inf, int mediasize_X, int mediasize_Y, double harf, string filename) {
 	printf("hello writing\n");
 	image = Mat::zeros(mediasize_Y, mediasize_X, CV_8UC3);
 	//printf("%d %d", writing_inf.size(), writing_inf[0].size());
@@ -25,7 +25,7 @@ void Image::generation(vector<vector<double>> writing_inf, int mediasize_X, int 
 	imwrite(filename + extention, image);
 }
 
-void Image::N_generation(vector<vector<double>> writing_inf, int HD_width, int HD_length, int mediasize_X,int mediasize_Y,double harf, string filename, int sepa) {
+void Image::N_generation_DMD(vector<vector<double>> writing_inf, int HD_width, int HD_length, int mediasize_X,int mediasize_Y,double harf, string filename, int sepa) {
 	image = Mat::zeros(HD_length, HD_width, CV_8UC3);
 	static bool flag1,flag2 = true;
 
@@ -128,4 +128,33 @@ void Image::N_generation(vector<vector<double>> writing_inf, int HD_width, int H
 			image.zeros(HD_length, HD_width, CV_8UC1);
 		}
 	}
+}
+
+void Image::generation_LCOS(vector<vector<double>> writing_inf, int mediasize_X, int mediasize_Y, string filename) {
+	printf("hello writing\n");
+	image = Mat::zeros(mediasize_Y, mediasize_X, CV_8UC3);
+	//printf("%d %d", writing_inf.size(), writing_inf[0].size());
+	double Max=0;
+	double Min=0;
+
+	for (int i = 0; i < mediasize_Y; i++) {
+		for (int m = 0; m < mediasize_X; m++) {
+			if (Max < writing_inf[i][m]) Max = writing_inf[i][m];
+			if (Min > writing_inf[i][m]) Min = writing_inf[i][m];
+		}
+	}
+	printf("%f %f\n", Max, Min);
+	for (int i = 0; i < mediasize_Y; i++) {
+		for (int m = 0; m < mediasize_X; m++) {
+			for (int n = 0; n < 3; n++) {
+				image.at<Vec3b>(i, m)[n] = (writing_inf[i][m] - Min) * (256 / (Max-Min));
+			}
+		}
+	}
+
+	imshow("", image);
+	waitKey(0);
+
+	string extention = ".bmp";
+	imwrite(filename + extention, image);
 }

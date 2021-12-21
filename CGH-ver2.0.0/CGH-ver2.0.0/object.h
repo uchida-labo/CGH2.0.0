@@ -10,7 +10,7 @@ class Object {
 public:
 	void P();
 	void Ps();
-	void P_lineX(int size, int resolution,int distance);
+	void P_lineX(int size, int resolution);
 	void cubic(int size, int resolution,int distance);
 	void initial_position(double x, double y, double z, vector<vector<int>> object_position);
 	void moving_parallel_transport(double incident_angle, vector<vector<int>> object_position);

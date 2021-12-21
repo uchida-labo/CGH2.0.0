@@ -8,7 +8,7 @@ void Object::Ps() {
 	point = { {0,0,5000}, {300,0,5000} ,{0,300,5000} ,{1000,1000,50} };
 }
 
-void Object::P_lineX(int size, int resolution,int distance) {
+void Object::P_lineX(int size, int resolution) {
 	point.resize(resolution, vector<int>(3));
 	for (int i = 0; i < resolution; i++) {
 		point[i][0] = size / resolution * i;

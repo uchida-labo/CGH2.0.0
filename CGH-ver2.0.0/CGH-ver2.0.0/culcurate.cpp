@@ -1,11 +1,12 @@
 #include"culcurate.h"
 
-void Culcurate::traditional_method(vector<vector<int>> point_group, vector<vector<vector<int>>>media_point, double wavelength, int mediasize_X, int mediasize_Y,double pixcelpitch) {
+void Culcurate::traditional_method(vector<vector<int>> point_group, vector<vector<vector<int>>>media_point, double wavelength, int mediasize_X, int mediasize_Y,double pixcelpitch,bool intensity_or_phase) {
 	printf("hello traditional\n");
 	Setting set;
 	double scatterd_light_intensity = 0;
 	double distance = 0;
 	double total = 0;
+	bool intensity = true;
 
 	writing_inf.resize(mediasize_Y,vector<double>(mediasize_X));
 	
@@ -13,8 +14,13 @@ void Culcurate::traditional_method(vector<vector<int>> point_group, vector<vecto
 		for (int m = 0; m < mediasize_X; m++) {
 			for (int n = 0; n < point_group.size(); n++) {
 				if (point_group[n][1] >= media_point[i][m][1]) {
-					distance = sqrt((((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0]) + (point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1]) + (point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2])))*pixcelpitch * pixcelpitch);
-					scatterd_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * (point_group[n][0] - media_point[i][m][0]) * pixcelpitch));
+					distance = sqrt((((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0]) + (point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1]) + (point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2]))) * pixcelpitch * pixcelpitch);
+					if (intensity_or_phase == intensity) {
+						scatterd_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * (point_group[n][0] - media_point[i][m][0]) * pixcelpitch));
+					}
+					else {
+						scatterd_light_intensity = cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * (point_group[n][0] - media_point[i][m][0]) * pixcelpitch));
+					}					
 					total += scatterd_light_intensity;
 				}
 				//printf("%d %d %f\n", m,i, total);
