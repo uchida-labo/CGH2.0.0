@@ -147,7 +147,8 @@ void Image::generation_LCOS(vector<vector<double>> writing_inf, int mediasize_X,
 	for (int i = 0; i < mediasize_Y; i++) {
 		for (int m = 0; m < mediasize_X; m++) {
 			for (int n = 0; n < 3; n++) {
-				image.at<Vec3b>(i, m)[n] = (writing_inf[i][m] - Min) * (256 / (Max-Min));
+				image.at<Vec3b>(i, m)[n] = (writing_inf[i][m] - Min) * (256 / (Max - Min));
+
 			}
 		}
 	}
