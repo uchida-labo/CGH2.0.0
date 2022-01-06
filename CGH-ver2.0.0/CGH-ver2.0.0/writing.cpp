@@ -136,11 +136,18 @@ void Image::generation_LCOS(vector<vector<double>> writing_inf, int mediasize_X,
 	//printf("%d %d", writing_inf.size(), writing_inf[0].size());
 	double Max=0;
 	double Min=0;
-
+	bool flag = false;
 	for (int i = 0; i < mediasize_Y; i++) {
 		for (int m = 0; m < mediasize_X; m++) {
-			if (Max < writing_inf[i][m]) Max = writing_inf[i][m];
-			if (Min > writing_inf[i][m]) Min = writing_inf[i][m];
+			if (writing_inf[i][m] != 0) {
+				if (flag == false) {
+					Min = writing_inf[i][m];
+					Max = writing_inf[i][m];
+					flag = true;
+				}
+				if (Max < writing_inf[i][m]) Max = writing_inf[i][m];
+				if (Min > writing_inf[i][m]) Min = writing_inf[i][m];
+			}
 		}
 	}
 	printf("%f %f\n", Max, Min);
@@ -148,7 +155,7 @@ void Image::generation_LCOS(vector<vector<double>> writing_inf, int mediasize_X,
 		for (int m = 0; m < mediasize_X; m++) {
 			for (int n = 0; n < 3; n++) {
 				image.at<Vec3b>(i, m)[n] = (writing_inf[i][m] - Min) * (256 / (Max - Min));
-
+				//printf("%f\n", writing_inf[i][m]);
 			}
 		}
 	}

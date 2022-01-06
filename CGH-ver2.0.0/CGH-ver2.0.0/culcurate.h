@@ -10,6 +10,7 @@ using namespace std;
 class Culcurate {
 public:
 	vector<vector<double>> writing_inf;
-	void traditional_method(vector<vector<int>> point_group, vector<vector<vector<int>>>media_point, double wavelength,int mediasize_X,int mediasize_Y,double pixcelpitch,bool intensity_or_phase);
+	void traditional_method_intensity(vector<vector<int>> point_group, vector<vector<vector<int>>>media_point, double wavelength,int mediasize_X,int mediasize_Y,double pixcelpitch);
 	void LUT_method(vector<vector<int>> point_group, double wavelength, int mediasize_X, int mediasize_Y, double pixcel_pitch);
+	void traditional_method_phase(vector<vector<int>> point_group, vector<vector<vector<int>>>media_point, double wavelength, int mediasize_X, int mediasize_Y, double pixcelpitch);
 };

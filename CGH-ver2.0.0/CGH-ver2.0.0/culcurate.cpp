@@ -1,6 +1,6 @@
 #include"culcurate.h"
 
-void Culcurate::traditional_method(vector<vector<int>> point_group, vector<vector<vector<int>>>media_point, double wavelength, int mediasize_X, int mediasize_Y,double pixcelpitch,bool intensity_or_phase) {
+void Culcurate::traditional_method_intensity(vector<vector<int>> point_group, vector<vector<vector<int>>>media_point, double wavelength, int mediasize_X, int mediasize_Y,double pixcelpitch) {
 	printf("hello traditional\n");
 	Setting set;
 	double scatterd_light_intensity = 0;
@@ -15,12 +15,7 @@ void Culcurate::traditional_method(vector<vector<int>> point_group, vector<vecto
 			for (int n = 0; n < point_group.size(); n++) {
 				if (point_group[n][1] >= media_point[i][m][1]) {
 					distance = sqrt((((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0]) + (point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1]) + (point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2]))) * pixcelpitch * pixcelpitch);
-					if (intensity_or_phase == intensity) {
-						scatterd_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * (point_group[n][0] - media_point[i][m][0]) * pixcelpitch));
-					}
-					else {
-						scatterd_light_intensity = cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * (point_group[n][0] - media_point[i][m][0]) * pixcelpitch));
-					}					
+					scatterd_light_intensity = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * (point_group[n][0] - media_point[i][m][0]) * pixcelpitch));
 					total += scatterd_light_intensity;
 				}
 				//printf("%d %d %f\n", m,i, total);
@@ -136,6 +131,34 @@ void Culcurate::LUT_method(vector<vector<int>> point_group, double wavelength, i
 					writing_inf[m][n] += virtual_media[y][x];
 				}
 			}
+		}
+	}
+}
+
+void Culcurate::traditional_method_phase(vector<vector<int>> point_group, vector<vector<vector<int>>>media_point, double wavelength, int mediasize_X, int mediasize_Y, double pixcelpitch) {
+	printf("hello traditional\n");
+	Setting set;
+	double phase_distribution = 0;
+	double object_light;
+	double total_object_light = 0;
+	double distance = 0;
+	
+	writing_inf.resize(mediasize_Y, vector<double>(mediasize_X));
+
+	for (int i = 0; i < mediasize_Y; i++) {
+		for (int m = 0; m < mediasize_X; m++) {
+			for (int n = 0; n < point_group.size(); n++) {
+				if (point_group[n][1] >= media_point[i][m][1]) {
+					distance = sqrt((((point_group[n][0] - media_point[i][m][0]) * (point_group[n][0] - media_point[i][m][0]) + (point_group[n][1] - media_point[i][m][1]) * (point_group[n][1] - media_point[i][m][1]) + (point_group[n][2] - media_point[i][m][2]) * (point_group[n][2] - media_point[i][m][2]))) * pixcelpitch * pixcelpitch);
+					object_light = 1 / distance * cos(2 * PI * sin(set.incident_angle) * (point_group[n][0] - media_point[i][m][0]) / (wavelength * nano)) * sqrt(cos(2 * PI * distance / (wavelength * nano)) * cos(2 * PI * distance / (wavelength * nano)) + sin(2 * PI * distance / (wavelength * nano)) * sin(2 * PI * distance / (wavelength * nano)));
+					//phase_distribution = 2 * PI * 1.0 / (wavelength * nano) * (1 + 2 * sqrt((1 / distance * cos(2 * PI * distance / (wavelength * nano))) * (1 / distance * cos(2 * PI * distance / (wavelength * nano))) + (1 / distance * sin(2 * PI * distance / (wavelength * nano))) * (1 / distance * sin(2 * PI * distance / (wavelength * nano)))) * cos(2 * PI * sin(set.incident_angle) * (point_group[n][0] - media_point[i][m][0]) * pixcelpitch / (wavelength*nano)));
+					//phase_distribution = (1 / distance) * cos(2 * PI / (wavelength * nano) * (distance - sin(set.incident_angle) * (point_group[n][0] - media_point[i][m][0]) * pixcelpitch));
+					total_object_light += object_light;
+				}
+				//printf("%d %d %f\n", m,i, total);
+			}
+			writing_inf[i][m] = 2 * PI * 1.0*nano / (wavelength * nano) * (1 + 2 * total_object_light);
+			total_object_light = 0;
 		}
 	}
 }
