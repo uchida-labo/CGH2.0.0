@@ -9,6 +9,10 @@ public:
 	int HD_width = 1024;
 	int HD_length = 768;
 
+	int LCOS_width = 800;
+	int LCOS_height = 600;
+	int Lens_focas_rate = 500;//[mm]
+
 	double wavelength = 532.0;
 	double amplitude = 0.5;
 	double apperin_distance = 0.005;

@@ -17,4 +17,6 @@ public:
 	void N_generation_DMD(vector<vector<double>> writing_inf, int HD_width, int HD_length, int mediasize_X, int mediasize_Y, double harf, string filename, int sepa);
 	//LCOS—p‚Ì‰æ‘œ¶¬
 	void generation_LCOS(vector<vector<double>> writing_inf, int mediasize_X, int mediasize_Y, string filename);
+	//IFTA—p‚Ì‰æ‘œ¶¬
+	void generation_IFTA(vector<vector<double>> writing_inf, int LCOS_width, int LCOS_height, string filename);
 };
