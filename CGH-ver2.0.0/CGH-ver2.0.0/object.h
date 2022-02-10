@@ -3,6 +3,7 @@
 #include <vector>
 #include <math.h>
 #include "context.h"
+#include "setting.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ public:
 	void cubic(int size, int resolution,int distance);
 	void initial_position(double x, double y, double z, vector<vector<int>> object_position);
 	void moving_parallel_transport(double incident_angle, vector<vector<int>> object_position);
+	void H();
 	vector<vector<int>> point;
 };
 

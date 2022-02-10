@@ -59,7 +59,41 @@ void Object::moving_parallel_transport(double incident_angle, vector<vector<int>
 		point[i][2] = object_position[i][2] - (int)(object_position[i][2] * sin(incident_angle) * tan(incident_angle));
 		//printf("%d %d \n", point[i][0], point[i][2]);
 	}
-	
+}
+
+void Object::H() {
+	printf("Hin\n");
+	Setting set;
+	point.resize(set.LCOS_height/4 * set.LCOS_width/4, vector<int>(1));
+
+	for (int i = 0; i < set.LCOS_height/4 * set.LCOS_width/4; i++) {
+		point[i][0] = 0;
+	}
+
+	for (int m = 25; m < 125; m++) {
+		for (int i = 48; i < 51; i++) {
+			point[i + m * set.LCOS_width/4][0] = 1;		
+		}
+	}
+
+	for (int m = 25; m < 125; m++) {
+		for (int i = 148; i < 151; i++) {
+			point[i + m * set.LCOS_width/4][0] = 1;
+		}
+	}
+
+	for (int m = 73; m < 76; m++) {
+		for (int i = 51; i < 148; i++) {
+			point[i + m * set.LCOS_width/4][0] = 1;
+		}
+	}
+
+	for (int i = 0; i < set.LCOS_height/4; i+=10) {
+		for (int m = 0; m < set.LCOS_width/4; m+=10) {
+			printf("%d", point[m + i * set.LCOS_width/4][0]);
+		}
+		printf("\n");
+	}
 }
 
 void Media::media_criate(int mediasize_X, int mediasize_Y, int pixcel_pitch) {

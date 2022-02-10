@@ -5,13 +5,13 @@ class Setting {
 public:
 	int mediasize_X = 1024;//1024*3;
 	int mediasize_Y = 768;//768*3;
-	double pixcelpitch = 1.0;//um
+	double pixcelpitch = 20;//um
 	int HD_width = 1024;
 	int HD_length = 768;
 
 	int LCOS_width = 800;
 	int LCOS_height = 600;
-	int Lens_focas_rate = 500;//[mm]
+	int Lens_focas_rate = 100;//[mm]
 
 	double wavelength = 532.0;
 	double amplitude = 0.5;

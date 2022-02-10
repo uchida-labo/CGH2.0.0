@@ -21,13 +21,16 @@ void simulation() {
 	media.media_criate(set.mediasize_X, set.mediasize_Y, set.pixcelpitch);
 	//media.initial_position(0, 0, 0, media.point);
 
-	//object.cubic(400, 10, 5000);
-	object.P();
+	//object.cubic(100, 10, 0);
+
+	object.H();
 	//object.P_lineX(4, 1);//test:object.P_lineX(400,10);
 	//オブジェクトの選択
-	//object.cubic(400, 10, 5000);//test：object.cubic(400, 1,5000);//第二変数の最大値は第一変数まで
+	//object.cubic(400, 10, 5000);//test：object.cubic(400, 1,5000);//第4二変数の最大値は第一変数まで
 	//レーザー入射角に関する関数
-	object.moving_parallel_transport(set.incident_angle, object.point);
+	//object.moving_parallel_transport(set.incident_angle, object.point);
+	//物体の平行移動
+	//object.initial_position(0, 0, -5000, object.point);
 	
 	culcurate.IFTA_method(object.point, media.point, set.wavelength, set.LCOS_width, set.LCOS_height, set.pixcelpitch * 0.000001);
 	//計算手法について，現在従来手法とLUT法の二つを行い，計算結果に間違いがないかチェックしている

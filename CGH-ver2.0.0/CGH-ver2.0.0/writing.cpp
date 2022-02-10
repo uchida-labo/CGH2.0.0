@@ -170,13 +170,25 @@ void Image::generation_LCOS(vector<vector<double>> writing_inf, int mediasize_X,
 void Image::generation_IFTA(vector<vector<double>> writing_inf, int LCOS_width, int LCOS_height, string filename) {
 	printf("hello writing\n");
 	image = Mat::zeros(LCOS_height,LCOS_width, CV_8UC3);
-	
+
+	double max=0.0;
+	double min=0.0;
+	for (int i = 0; i < LCOS_height; i++) {
+		for (int j = 0; j < LCOS_width; j++) {
+			if (writing_inf[i][j] > max)
+				max = writing_inf[i][j];
+			if (writing_inf[i][j] < min)
+				min = writing_inf[i][j];
+		}
+	}
+
+
 	for (int i = 0; i < LCOS_height; i++) {
 		for (int j = 0; j < LCOS_width; j++) {
 			for (int k = 0; k < 3; k++) {
-				image.at<Vec3b>(i, j)[k] = writing_inf[i][j]*255/(2*PI);
-				//printf("%f\n", writing_inf[i][j] * 255 / (2 * PI));
+				image.at<Vec3b>(i, j)[k] = (writing_inf[i][j]-min) *255 / (max-min);
 			}
+			//printf("%f\n", (writing_inf[i][j] - min) * 255 / (max - min));
 		}
 	}
 

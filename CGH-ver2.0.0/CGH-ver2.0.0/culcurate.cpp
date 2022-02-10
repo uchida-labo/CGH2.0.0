@@ -140,25 +140,51 @@ void Culcurate::IFTA_method(vector<vector<int>> point_group, vector<vector<vecto
 	Setting set;
 	double total=0;
 	double distance;
-	int m;
+	double total_Ampletude_n = 0;
+	double total_Sin_n = 0;
+	double total_Cos_n = 0;
+	vector<vector<double>> Ampletude;
+	vector<vector<double>> Sin;
+	vector<vector<double>> Cos;
+	Ampletude.resize(LCOS_height, vector<double>(LCOS_width));;
+	Sin.resize(LCOS_height, vector<double>(LCOS_width));
+	Cos.resize(LCOS_height, vector<double>(LCOS_width));
+
 	writing_inf.resize(LCOS_height, vector<double>(LCOS_width));
 
-	for (int y = -LCOS_height / 2+1; y < LCOS_height/2; y++) {
+	for (int y = 0; y < set.LCOS_height; y++) {
 		printf("in\n");
-		for (int x = -LCOS_width / 2+1; x < LCOS_width/2; x++) {
-			for (int i = -10; i < 10; i++) {
-				for (int j = -10; j < 10; j++) {
-					for (int k = 0; k < point_group.size(); k++) {
-						distance = sqrt((((point_group[k][0] - j) * (point_group[k][0] - j) + (point_group[k][1] - i) * (point_group[k][1] - i) + (point_group[k][2] - 0) * (point_group[k][2] - 0))) * pixcelpitch * pixcelpitch);
-						total += 2 * PI / (wavelength * nano) * (distance + 2.0 * (j * x + i * y)* pixcelpitch * pixcelpitch);
-						//printf("%f\n", );
-					}
+		for (int x = 0; x < set.LCOS_width; x++) {
+			for (int Ny = 0; Ny < set.LCOS_height/4; Ny+=25) {
+				for (int Nx = 0; Nx < set.LCOS_width/4; Nx+=25) {
+					total += point_group[Ny * set.LCOS_width/4 + Nx][0] * cos(2 * PI * ((double)(x * Nx) / (double)set.HD_width + (double)(y * Ny)/ (double)set.LCOS_height));
+					//printf("%d\n", Ny * set.LCOS_width + Nx);
 				}
 			}
-			m = total / (2 * PI);
-			//printf("%f %f\n",m,total - 2 * PI * m);
-			writing_inf[y + LCOS_height / 2-1][x+ LCOS_width / 2-1] = total-2*PI*m;
-			total = 0.0;
+			writing_inf[y][x] = total / (wavelength * nano * set.Lens_focas_rate * mili);
+			//printf("%f\n", writing_inf[y][x]);
+			total = 0;
 		}
 	}
+/*
+	for (int y = -LCOS_height / 2 + 1; y < LCOS_height / 2; y++) {
+		printf("in\n");
+		for (int x = -LCOS_width / 2 + 1; x < LCOS_width / 2; x++) {
+			for (int i = -LCOS_height / 2 + 1; i < LCOS_height / 2; i++) {
+				printf("in\n");
+				for (int j = -LCOS_width / 2 + 1; j < LCOS_width / 2; j++) {
+					for (int k = 0; k < point_group.size(); k++) {
+						distance = sqrt((((point_group[k][0] - j) * (point_group[k][0] - j) + (point_group[k][1] - i) * (point_group[k][1] - i) + point_group[k][2] * point_group[k][2])) * pixcelpitch * pixcelpitch);
+						Ampletude_n += 1 / distance;
+						Sin_n += sin(2 * PI / (wavelength * nano) * distance);
+						Cos_n += cos(2 * PI / (wavelength * nano) * distance);
+					}
+					total += Ampletude_n * (Cos_n * cos(2 * PI / (wavelength * nano * set.Lens_focas_rate * mili) * (i * x + j * y)) - Sin_n * sin(2 * PI / (wavelength * nano * set.Lens_focas_rate * mili) * (i * x + j * y)));
+				}
+			}
+			writing_inf[y][x] = 1 / (wavelength * nano * set.Lens_focas_rate * mili) * total;
+			total = 0;
+		}
+	}
+	*/
 }
