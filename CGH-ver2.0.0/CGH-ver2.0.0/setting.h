@@ -9,6 +9,8 @@ public:
 	int HD_width = 1024;
 	int HD_length = 768;
 
+	int Object_width = 150;
+	int Object_height = 150;
 	int LCOS_width = 800;
 	int LCOS_height = 600;
 	int Lens_focas_rate = 100;//[mm]

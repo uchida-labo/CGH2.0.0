@@ -155,9 +155,9 @@ void Culcurate::IFTA_method(vector<vector<int>> point_group, vector<vector<vecto
 	for (int y = 0; y < set.LCOS_height; y++) {
 		printf("in\n");
 		for (int x = 0; x < set.LCOS_width; x++) {
-			for (int Ny = 0; Ny < set.LCOS_height/4; Ny+=25) {
-				for (int Nx = 0; Nx < set.LCOS_width/4; Nx+=25) {
-					total += point_group[Ny * set.LCOS_width/4 + Nx][0] * cos(2 * PI * ((double)(x * Nx) / (double)set.HD_width + (double)(y * Ny)/ (double)set.LCOS_height));
+			for (int Ny = 0; Ny < set.Object_height; Ny+=10) {
+				for (int Nx = 0; Nx < set.Object_width; Nx+=10) {
+					total += point_group[Ny * set.Object_width + Nx][0] * cos(2 * PI * ((double)(x * Nx) / (double)set.HD_width + (double)(y * Ny)/ (double)set.LCOS_height));
 					//printf("%d\n", Ny * set.LCOS_width + Nx);
 				}
 			}
