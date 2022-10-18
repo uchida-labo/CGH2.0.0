@@ -14,7 +14,7 @@ void simulation() {
 	FILE *fp;
 	char line[100];
 	
-	fopen_s(&fp,"G:\\�}�C�h���C�u\\�����f�[�^\\tsuru_mm.txt", "r");
+	fopen_s(&fp,"point.txt", "r");
 	double x, y, z,x_max=0,y_max=0;
 
 	while(fscanf_s(fp, "%lf,%lf,%lf", &x, &y, &z) != EOF)
@@ -23,6 +23,8 @@ void simulation() {
 		if (x > x_max) x_max = x;
 		if (y > y_max) y_max = y;
 	}
+
+	//object.cubic(cubic_size, 100);
 
 	printf("%d", object.get_points().size());
 	object.initial_position(-x_max/2,
