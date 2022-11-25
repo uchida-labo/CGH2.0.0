@@ -14,7 +14,7 @@ void simulation() {
 	FILE *fp;
 	char line[100];
 	
-	fopen_s(&fp,"point.txt", "r");
+	fopen_s(&fp,"point\\cubic\\cubic-10mm-5mm.txt", "r");
 	double x, y, z,x_max=0,y_max=0;
 
 	while(fscanf_s(fp, "%lf,%lf,%lf", &x, &y, &z) != EOF)
@@ -27,11 +27,11 @@ void simulation() {
 	//object.cubic(cubic_size, 100);
 
 	printf("%d", object.get_points().size());
-	object.initial_position(-x_max/2,
-							((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - y_max - 1e-4,
+	object.initial_position(-x_max/2+1,
+							-y_max/2,
+							//((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - y_max - 1e-4,
 							0,
 							object.get_points());
-
 
 	string filename;
 
@@ -39,7 +39,9 @@ void simulation() {
 	cin >> filename;
 
 	media.media_criate(set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance);
-	media.initial_position(0, 0, 0, media.get_points());
+	object.rotate(set.incident_angle, object.get_points(), axis::y);
+
+	//media.initial_position(0, 0, 0, media.get_points());
 
 	//object.P();
 	//object.cubic(cubic_size, 100);
@@ -50,7 +52,6 @@ void simulation() {
 							-5.0 * 1e-3,
 							object.point);*/
 
-	object.rotate(set.incident_angle, object.get_points(), axis::y);
 
 	/*auto itr = media.point.begin();
 	for (; itr != media.point.end(); ++itr) {

@@ -44,7 +44,9 @@ void Object::initial_position(double x, double y, double z, vector<vector<double
 		point[i][0] = object_position[i][0] + x;
 		point[i][1] = object_position[i][1] + y;
 		point[i][2] = object_position[i][2] + z;
+		//printf("%f %f %f \n", point[i][0], point[i][1], point[i][2]);
 	}
+
 }
 
 void Object::rotate(double angle, vector<vector<double>> object_position, axis Axis) {
@@ -72,7 +74,9 @@ void Object::rotate(double angle, vector<vector<double>> object_position, axis A
 			point[i][dim] = object_position[i][0] * rotate_array[dim][0] +
 							object_position[i][1] * rotate_array[dim][1] +
 							object_position[i][2] * rotate_array[dim][2];
+			//printf("%f ", point[i][dim]);
 		}
+		//printf("\n");
 	}
 }
 
@@ -84,6 +88,7 @@ Media::Media() :Pixel_pitch(0) {}
 
 double Media::GetPixelPitch() { return Pixel_pitch; }
 
+
 void Media::media_criate(int mediasize_X, int mediasize_Y, double pixcel_pitch,double distance) {
 	Pixel_pitch = pixcel_pitch;
 	unsigned long pointnum = 0;
@@ -93,12 +98,13 @@ void Media::media_criate(int mediasize_X, int mediasize_Y, double pixcel_pitch,d
 			point[pointnum].push_back((mediasize_X / 2.0 - m) * pixcel_pitch);
 			point[pointnum].push_back((mediasize_Y / 2.0 - i) * pixcel_pitch);
 			point[pointnum].push_back(distance);
-
+			//printf("%f %f %f\n", point[pointnum][0], point[pointnum][1], point[pointnum][2]);
 			pointnum++;
 		}
 	}
 }
 
+/*
 void Media::media_criate(int mediasize_X, int mediasize_Y, double pixcel_pitch, double distance, double angle) {
 	Pixel_pitch = pixcel_pitch;
 	long pointnum = 0;
@@ -108,8 +114,8 @@ void Media::media_criate(int mediasize_X, int mediasize_Y, double pixcel_pitch, 
 			point[pointnum].push_back((mediasize_X / 2.0 - m) * pixcel_pitch * cos(angle));
 			point[pointnum].push_back((mediasize_Y / 2.0 - i) * pixcel_pitch);
 			point[pointnum].push_back(((mediasize_X / 2.0 - m) * pixcel_pitch * sin(angle)) + distance);
-
 			pointnum++;
 		}
 	}
 }
+*/
