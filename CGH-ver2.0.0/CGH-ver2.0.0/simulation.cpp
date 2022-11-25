@@ -9,8 +9,29 @@ void simulation() {
 	Setting set;
 	Image image;
 	// Grapth grapth;
-	double cubic_size = 1e-3;
 
+	double cubic_size = 1;
+	FILE *fp;
+	char line[100];
+	
+	fopen_s(&fp,"point\\cubic\\cubic-10mm-5mm.txt", "r");
+	double x, y, z,x_max=0,y_max=0;
+
+	while(fscanf_s(fp, "%lf,%lf,%lf", &x, &y, &z) != EOF)
+	{
+		object.pushbuck_3dpoints(x,y,z);
+		if (x > x_max) x_max = x;
+		if (y > y_max) y_max = y;
+	}
+
+	//object.cubic(cubic_size, 100);
+
+	printf("%d", object.get_points().size());
+	object.initial_position(-x_max/2+1,
+							-y_max/2,
+							//((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - y_max - 1e-4,
+							0,
+							object.get_points());
 
 	string filename;
 
@@ -18,16 +39,19 @@ void simulation() {
 	cin >> filename;
 
 	media.media_criate(set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance);
-	media.initial_position(0, 0, 0, media.point);
+	object.rotate(set.incident_angle, object.get_points(), axis::y);
+
+	//media.initial_position(0, 0, 0, media.get_points());
 
 	//object.P();
-	object.cubic(cubic_size, 1000);
+	//object.cubic(cubic_size, 100);
 
-	printf("%f\n", ((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size);
-	object.initial_position(-(cubic_size/2.0),
+	//printf("%f\n", ((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size);
+	/*object.initial_position(-(cubic_size/2.0),
 							((double)set.mediasize_Y * set.pixcelpitch / 2.0 * 1e-6) - cubic_size - 1e-4,
-							-2.0 * 1e-3,
-							object.point);
+							-5.0 * 1e-3,
+							object.point);*/
+
 
 	/*auto itr = media.point.begin();
 	for (; itr != media.point.end(); ++itr) {
@@ -44,7 +68,7 @@ void simulation() {
 	
 	auto start = std::chrono::system_clock::now();
 
-	culcurate.traditional_method(object.point, media, set.wavelength,set.mediasize_X,set.mediasize_Y);
+	culcurate.traditional_method(object.get_points(), media, set.wavelength,set.mediasize_X,set.mediasize_Y);
 	//culcurate.LUT_method(object.point, media.point, set.wavelength, set.mediasize_X, set.mediasize_Y, set.pixcelpitch,set.apperin_distance*million);
 	//grapth.write(culcurate.writing_inf, set.mediasize_X, set.mediasize_Y);
 
